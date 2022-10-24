@@ -15,6 +15,14 @@ Game::Game(std::string windowTitle)
 
 void Game::runGame()
 {
+	// Set the owning game to this game. The will be passed to all
+	// other GameObjects when addChildGameObject is called
+	this->owningGame = this;
+
+	// The Game is the root of the scene graph. It does not 
+	// have a  parent.
+	this->parent = nullptr;
+
 	// Initialize the game
 	bool success = initializeGame();
 

@@ -132,6 +132,7 @@
     <ClInclude Include="BuildShaderProgram.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ContinuousRotateComponent.h" />
+    <ClInclude Include="DirectionalLightComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
@@ -143,12 +144,14 @@
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="ModelMeshComponent.h" />
     <ClInclude Include="MyGame.h" />
+    <ClInclude Include="PositionalLightComponent.h" />
     <ClInclude Include="SceneGraphNode.h" />
     <ClInclude Include="SharedLighting.h" />
     <ClInclude Include="SharedMaterials.h" />
     <ClInclude Include="SharedTransformations.h" />
     <ClInclude Include="SharedUniformBlock.h" />
     <ClInclude Include="SphereMeshComponent.h" />
+    <ClInclude Include="SpotLightComponent.h" />
     <ClInclude Include="SteerComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TranslateComponent.h" />
@@ -160,6 +163,7 @@
     <ClCompile Include="BuildShaderProgram.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ContinuousRotateComponent.cpp" />
+    <ClCompile Include="DirectionalLightComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
@@ -169,12 +173,14 @@
     <ClCompile Include="MathLibsConstsFuncs.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="ModelMeshComponent.cpp" />
+    <ClCompile Include="PositionalLightComponent.cpp" />
     <ClCompile Include="SceneGraphNode.cpp" />
     <ClCompile Include="SharedLighting.cpp" />
     <ClCompile Include="SharedMaterials.cpp" />
     <ClCompile Include="SharedTransformations.cpp" />
     <ClCompile Include="SharedUniformBlock.cpp" />
     <ClCompile Include="SphereMeshComponent.cpp" />
+    <ClCompile Include="SpotLightComponent.cpp" />
     <ClCompile Include="SteerComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TranslateComponent.cpp" />
@@ -182,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.glsl" />
+    <None Include="Shaders\perPixelLightingfragmentShader.glsl" />
     <None Include="Shaders\vertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
