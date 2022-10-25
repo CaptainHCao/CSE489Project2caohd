@@ -5,6 +5,8 @@
 class SpotLightComponent :
     public LightComponent
 {
-    virtual void update(const float& deltaTime) override;
+    public: 
+        SpotLightComponent(int controlKey, int updateOrder = 100);
+        virtual void update(const float& deltaTime) override;
 };
 

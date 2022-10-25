@@ -278,12 +278,18 @@ void Game::renderScene()
 	// Clear the color and depth buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//mat4 viewingTrans = glm::lookAt(vec3(5.0f, 5.0f, 10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	//Loop through activeCameras
+	for (auto& camera : CameraComponent::GetActiveCameras()) {
 
-	mat4 viewingTrans = glm::lookAt(vec3(0.0f, 50.0f, 00.0f), vec3(0.0f, 0.0f, 0.0f),
-		vec3(0.0f, 0.0f, -1.0f));
+		camera->setCameraTransformations();
 
-	SharedTransformations::setViewMatrix(viewingTrans);
+		// Render the Scene ...
+		for (auto mesh : MeshComponent::GetMeshComponents()) {
+
+			mesh->draw();
+		}
+	}
+
 
 	// Render the Scene ...
 	for (auto & mesh : MeshComponent::GetMeshComponents()) {

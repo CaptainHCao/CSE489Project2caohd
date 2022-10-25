@@ -28,11 +28,34 @@ protected:
 		// Set up the uniform bufferes and 
 		SharedMaterials::setUniformBlockForShader(shaderProgram);
 		SharedTransformations::setUniformBlockForShader(shaderProgram);
+	
 		SharedLighting::setUniformBlockForShader(shaderProgram);
 
 
 		// Set the clear color for the rendering window
 		glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
+
+		//Create a game object to hold the light
+		GameObject* lightObject = new GameObject();
+		
+		//A directional light
+		LightComponent* dir = new DirectionalLightComponent(GLFW_KEY_D);
+
+		//A positional light
+		LightComponent* pos = new PositionalLightComponent(GLFW_KEY_P);
+		
+		//A spot light
+		LightComponent* spot = new SpotLightComponent(GLFW_KEY_S);
+
+		//set lighting attributes
+		//dir->setAmbientColor(WHITE_RGBA);
+		//dir->setDiffuseColor(WHITE_RGBA);
+		//dir->setEnabled(true);
+		
+		//Add component back to the game object
+		lightObject->addComponent(dir);
+		lightObject->addComponent(pos);
+		lightObject->addComponent(spot);
 
 		// Create a container to hold the box
 		GameObject* firstGameObject = new GameObject(); //******************* Week 8 ********************
@@ -79,11 +102,13 @@ protected:
 		this->addChildGameObject(firstGameObject);
 		this->addChildGameObject(secondGameObject);
 		this->addChildGameObject(thirdGameObject);
+		this->addChildGameObject(lightObject);
 
 		// Rotate the box game object that contains the cube
 		firstGameObject->setRotation(glm::rotate(PI / 4.0f, UNIT_Y_V3)); //******************* Week 8 ********************
 		secondGameObject->setPosition(vec3(3.0f, 0.0f, 0.0f));
 		thirdGameObject->setPosition(vec3(-5.0f, 0.0f, 0.0f));
+		lightObject->setPosition(vec3(0.0f, 5.0f, 0.0f));
 
 	}; // end loadScene
 
@@ -91,8 +116,6 @@ protected:
 	{
 		// Call the super class method
 		Game::processGameInput();
-
-
 	}
 
 

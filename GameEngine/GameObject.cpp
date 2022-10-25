@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "MeshComponent.h"
 #include "Game.h"
+#include "CameraComponent.h"
 
 #define VERBOSE false
 
@@ -132,11 +133,11 @@ void GameObject::addComponent(Component* component)
 		(dynamic_cast<MeshComponent*>(component))->addMeshComp();
 	}
 
-	//if (component->getComponentType() == CAMERA) {
+	if (component->getComponentType() == CAMERA) {
 
-	//	// Add the mesh to the static vector of MeshComponents
-	//	(dynamic_cast<CameraComponent*>(component))->addCamera();
-	//}
+		// Add the mesh to the static vector of MeshComponents
+		(dynamic_cast<CameraComponent*>(component))->addCamera();
+	}
 
 } // end addComponent
 
@@ -158,11 +159,11 @@ void GameObject::removeComponent(Component* component)
 			(dynamic_cast<MeshComponent*>(component))->removeMeshComp();
 		}
 
-		//if (component->getComponentType() == CAMERA) {
+		if (component->getComponentType() == CAMERA) {
 
-		//	// Add the mesh to the static vector of MeshComponents
-		//	(dynamic_cast<CameraComponent*>(component))->removeCamera();
-		//}
+			// Add the mesh to the static vector of MeshComponents
+			(dynamic_cast<CameraComponent*>(component))->removeCamera();
+		}
 
 		auto temp = *iter;
 

@@ -130,6 +130,7 @@
     <ClInclude Include="ArrowRotateComponent.h" />
     <ClInclude Include="BoxMeshComponent.h" />
     <ClInclude Include="BuildShaderProgram.h" />
+    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ContinuousRotateComponent.h" />
     <ClInclude Include="DirectionalLightComponent.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="SharedMaterials.cpp" />
     <ClCompile Include="SharedTransformations.cpp" />
     <ClCompile Include="SharedUniformBlock.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="SphereMeshComponent.cpp" />
     <ClCompile Include="SpotLightComponent.cpp" />
     <ClCompile Include="SteerComponent.cpp" />
@@ -188,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.glsl" />
+    <None Include="Shaders\nonLightfragmentShader.glsl" />
     <None Include="Shaders\perPixelLightingfragmentShader.glsl" />
     <None Include="Shaders\vertexShader.glsl" />
   </ItemGroup>

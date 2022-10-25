@@ -28,3 +28,10 @@
 
 // Lighting
 #include "SharedLighting.h"
+#include "LightComponent.h"
+#include "DirectionalLightComponent.h"
+#include "PositionalLightComponent.h"
+#include "SpotLightComponent.h"
+
+//Camera
+#include "CameraComponent.h"

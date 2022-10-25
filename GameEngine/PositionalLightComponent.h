@@ -6,7 +6,7 @@ class PositionalLightComponent :
     public LightComponent
 {
 public:
-    
+    PositionalLightComponent(int controlKey, int updateOrder = 100);
     virtual void update(const float& deltaTime) override;
 };
 

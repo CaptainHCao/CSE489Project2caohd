@@ -14,6 +14,9 @@ LightComponent::LightComponent(int controlKey, int updateOrder)
 			break;
 		}
 	}
+	setDiffuseColor(WHITE_RGBA);
+	//setSpecularColor(WHITE_RGBA);
+	setEnabled(true);
 }
 
 void LightComponent::setAmbientColor(vec4 mat) 
@@ -31,6 +34,31 @@ void LightComponent::setSpecularColor(vec4 mat)
 	SharedLighting::setSpecularColor(lightIndex, mat);
 }
 
+void LightComponent::setEnabled(bool on) 
+{
+	SharedLighting::setEnabled(lightIndex, on);
+}
+
+bool LightComponent::getEnabled()
+{
+	return SharedLighting::getEnabled(lightIndex);
+}
+
+void LightComponent::setAttenuation(vec3 factors)
+{
+	SharedLighting::setAttenuationFactors(lightIndex, factors);
+}
+
+void LightComponent::setSpotCutoffCos(float cutoffCos)
+{
+	SharedLighting::setSpotCutoffCos(lightIndex, cutoffCos);
+}
+
+void LightComponent::setSpotDirection(glm::vec3 spotDirect)
+{
+	SharedLighting::setSpotDirection(lightIndex, spotDirect);
+}
+
 LightComponent::~LightComponent() {
 	SharedLighting::initilizeAttributes(lightIndex);
 	SharedLighting::lights[lightIndex].inUse = false;
@@ -38,5 +66,24 @@ LightComponent::~LightComponent() {
 
 void LightComponent::update(const float& deltaTime) 
 {
+	
+}
 
+void LightComponent::processInput()
+{
+	if (glfwGetKey(glfwGetCurrentContext(), controlKey) && KeyDown == false)
+	{
+		cout << "toggling" << endl;
+		KeyDown = true;
+
+		if (getEnabled())
+		{
+			setEnabled(false);
+		}
+		else setEnabled(true);
+	}
+	else if (!glfwGetKey(glfwGetCurrentContext(), controlKey))
+	{
+		KeyDown = false;
+	}
 }
