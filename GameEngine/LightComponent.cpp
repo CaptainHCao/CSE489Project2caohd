@@ -1,6 +1,7 @@
 #include "LightComponent.h"
 #include "SharedLighting.h"
 
+//constructor
 LightComponent::LightComponent(int controlKey, int updateOrder)
 	: Component(updateOrder), controlKey(controlKey)
 {
@@ -20,6 +21,7 @@ LightComponent::LightComponent(int controlKey, int updateOrder)
 	setEnabled(true);
 }
 
+//light shared method
 void LightComponent::setAmbientColor(vec4 mat) 
 { 
 	SharedLighting::setAmbientColor(lightIndex, mat);
@@ -45,11 +47,27 @@ bool LightComponent::getEnabled()
 	return SharedLighting::getEnabled(lightIndex);
 }
 
-void LightComponent::setAttenuation(vec3 factors)
+//Atenuation methods
+void LightComponent::setAttenuationFactors(vec3 factors)
 {
 	SharedLighting::setAttenuationFactors(lightIndex, factors);
 }
 
+void LightComponent::setConstantAttenuation(float factor)
+{
+	SharedLighting::setConstantAttenuation(lightIndex, factor);
+}
+
+void LightComponent::setLinearAttenuation(float factor)
+{
+	SharedLighting::setLinearAttenuation(lightIndex, factor);
+}
+void LightComponent::setQuadraticAttenuation(float factor)
+{
+	SharedLighting::setQuadraticAttenuation(lightIndex, factor);
+}
+
+//Spot methods
 void LightComponent::setSpotCutoffCos(float cutoffCos)
 {
 	SharedLighting::setSpotCutoffCos(lightIndex, cutoffCos);
@@ -60,16 +78,24 @@ void LightComponent::setSpotDirection(glm::vec3 spotDirect)
 	SharedLighting::setSpotDirection(lightIndex, spotDirect);
 }
 
+bool LightComponent::getIsSpot() 
+{
+	return SharedLighting::getIsSpot(lightIndex);
+}
+
+//Destructor
 LightComponent::~LightComponent() {
 	SharedLighting::initilizeAttributes(lightIndex);
 	SharedLighting::lights[lightIndex].inUse = false;
 }
 
+//update Component
 void LightComponent::update(const float& deltaTime) 
 {
 	
 }
 
+//handle toggling input
 void LightComponent::processInput()
 {
 	if (glfwGetKey(glfwGetCurrentContext(), controlKey) && KeyDown == false)

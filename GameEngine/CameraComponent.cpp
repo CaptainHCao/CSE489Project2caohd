@@ -2,6 +2,7 @@
 #include "CameraComponent.h"
 #include "SceneGraphNode.h"
 
+//constructor
 CameraComponent::CameraComponent(const int& depth, const float& vertFovDegrees,
 	const float& nearClip, const float& farClip) : Component(), cameraDepth(depth), vertFovRadians(glm::radians(vertFovDegrees)), nearClip(nearClip), farClip(farClip)
 {
@@ -11,6 +12,7 @@ CameraComponent::CameraComponent(const int& depth, const float& vertFovDegrees,
 
 std::vector<CameraComponent*> CameraComponent::activeCameras;
 
+//set the transformations, including updated viewport
 void CameraComponent::setCameraTransformations()
 {
 	glm::ivec2 dim = owningGameObject->getOwningGame()->getWindowDimensions();
@@ -30,13 +32,17 @@ void CameraComponent::setCameraTransformations()
 	glViewport(this->xLowerLeft * dim.x, this->yLowerLeft * dim.y, this->viewPortWidth * dim.x, this->viewPortHeight * dim.y);
 }
 
-	
+//add a camera component
+
 void CameraComponent::addCamera()
 {
 	activeCameras.push_back(this);
-	std::sort(activeCameras.begin(), activeCameras.end(), CameraComponent::CompareUpdateOrder);
+
+	//std::sort(activeCameras.begin(), activeCameras.end(), CameraComponent::CompareUpdateOrder);
+	std::sort(activeCameras.begin(), activeCameras.end(), [](const auto& cam1, const auto& cam2) {return cam1->cameraDepth < cam2->cameraDepth; } );
 }
 
+// remove a camera component
 void CameraComponent::removeCamera() 
 {
 	auto camera = find(activeCameras.begin(), activeCameras.end(), this);
@@ -44,16 +50,19 @@ void CameraComponent::removeCamera()
 	activeCameras.erase(camera);
 }
 
+//destructor of a camera component
 CameraComponent::~CameraComponent()
 {
 	removeCamera();
 }
 
+// return the vector of active cameras
 const std::vector<CameraComponent*> CameraComponent::GetActiveCameras()
 {
 	return activeCameras;
 }
 
+// set view port properties
 void CameraComponent::setViewPort(GLfloat xLowerLeft, GLfloat yLowerLeft,
 	GLfloat viewPortWidth, GLfloat viewPortHeight) 
 {

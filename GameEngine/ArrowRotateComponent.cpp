@@ -23,22 +23,22 @@ void ArrowRotateComponent::update(const float& deltaTime)
 {
 	mat4 rot = owningGameObject->getRotation();
 
-	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_RIGHT)) {
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_J)) {
 
 		rot *= glm::rotate(ROTATION_INC * deltaTime, UNIT_Y_V3);
 	}
-	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT)) {
+	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_L)) {
 
 		rot *= glm::rotate(-ROTATION_INC * deltaTime, UNIT_Y_V3);
 
 	}
 
-	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_UP)) {
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_K)) {
 
 		rot *= glm::rotate(-ROTATION_INC * deltaTime, UNIT_X_V3);
 
 	}
-	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_DOWN)) {
+	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_I)) {
 
 		rot *= glm::rotate(ROTATION_INC * deltaTime, UNIT_X_V3);
 

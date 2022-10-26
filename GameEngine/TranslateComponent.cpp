@@ -15,14 +15,28 @@ void TranslateComponent::initialize()
 // reduced update() 
 void TranslateComponent::update(const float& deltaTime)
 {
-	vec4 fwd = vec4(owningGameObject->getFowardDirection(), 0.0f);
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_UP))
+	{
+		vec4 fwd = vec4(owningGameObject->getFowardDirection(), 0.0f);
 
-	vec3 newFwd = fwd.xyz;
+		vec3 newFwd = fwd.xyz;
 
-	vec3 position = owningGameObject->getPosition();
+		vec3 position = owningGameObject->getPosition();
 
-	position += glm::length(velocity) * newFwd * deltaTime;
+		position += glm::length(velocity) * newFwd * deltaTime;
 
-	owningGameObject->setPosition(position);
+		owningGameObject->setPosition(position);
+	}
+	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_DOWN))
+	{
+		vec4 fwd = vec4(owningGameObject->getFowardDirection(), 0.0f);
 
+		vec3 newFwd = fwd.xyz;
+
+		vec3 position = owningGameObject->getPosition();
+
+		position -= glm::length(velocity) * newFwd * deltaTime;
+
+		owningGameObject->setPosition(position);
+	}
 }

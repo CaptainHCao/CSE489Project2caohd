@@ -15,7 +15,7 @@
 #include "BoxMeshComponent.h"
 #include "ModelMeshComponent.h"
 #include "SphereMeshComponent.h"
-
+#include "CylinderMeshComponent.h"
 // Movement
 
 #include "ArrowRotateComponent.h"

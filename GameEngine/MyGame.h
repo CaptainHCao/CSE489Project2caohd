@@ -35,24 +35,33 @@ protected:
 		// Set the clear color for the rendering window
 		glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
 
+		// Create a "blue" material for a cylinder
+		Material cylinderMat;
+		cylinderMat.diffuseMat = BLUE_RGBA;
+
+		//create texture object                              
+		cylinderMat.setDiffuseTexture(Texture::GetTexture("Textures/lol.png")->getTextureObject());
+
+		// Instantiate a box shaped mesh
+		CylinderMeshComponent* cylinder = new CylinderMeshComponent(shaderProgram, cylinderMat);
 
 		// Create a container to hold the box
 		GameObject* firstGameObject = new GameObject(); //******************* Week 8 ********************
 
 		// Create a "blue" material for a box
-		Material boxMat;
-		boxMat.diffuseMat = BLUE_RGBA;
+		//Material boxMat;
+		//boxMat.diffuseMat = BLUE_RGBA;
 
-		// Instantiate a box shaped mesh component
-		BoxMeshComponent* box = new BoxMeshComponent(boxMat, shaderProgram);
+		//// Instantiate a box shaped mesh component
+		//BoxMeshComponent* box = new BoxMeshComponent(boxMat, shaderProgram);
 
 		// Add the box to a GameObject
-		firstGameObject->addComponent(box); 
+		firstGameObject->addComponent(cylinder); 
 		firstGameObject->addComponent(new ArrowRotateComponent( 100));
 		firstGameObject->addComponent(new MakeVisableComponent(GLFW_KEY_B));
 		firstGameObject->addComponent(new ContinuousRotateComponent(20.0f, UNIT_Z_V3, 100));
 
-		//Add a F15 aircraft
+		//Add a car
 		GameObject* secondGameObject = new GameObject();
 
 		secondGameObject->addComponent(new ModelMeshComponent("my_objects/car.obj", shaderProgram));
@@ -79,17 +88,15 @@ protected:
 		//Create camera object
 		GameObject* cameraObject = new GameObject();
 		CameraComponent* firstCamera = new CameraComponent(0, 45.0);
-		/*cameraObject->addComponent(new TranslateComponent(vec3(-3.0f, 0.0f, -4.0f)));
-		cameraObject->addComponent(new SteerComponent(60.0f));*/
 		
 		GameObject* secondCameraObject = new GameObject();
 		CameraComponent* secondCamera = new CameraComponent(1, 60.0);
-		secondCamera->setViewPort(0.7, 0.7, 0.3, 0.3);
+		secondCamera->setViewPort(0.6, 0.6, 0.4, 0.4);
 
 
 		//Add component to object
 		cameraObject->addComponent(firstCamera);
-		cameraObject->setRotation(glm::rotate(- PI_OVER_2, UNIT_X_V3), LOCAL);
+		cameraObject->addComponent(new ArrowRotateComponent());
 		secondCameraObject->addComponent(secondCamera);
 		
 		//Create a game object to hold the light
@@ -100,9 +107,12 @@ protected:
 
 		//A positional light
 		LightComponent* pos = new PositionalLightComponent(GLFW_KEY_P);
+		//pos->setAttenuationFactors(vec3(1.0, 0.0, 0.0));
 
 		//A spot light
 		LightComponent* spot = new SpotLightComponent(GLFW_KEY_S);
+		spot->setSpotCutoffCos(glm::cos(glm::radians(PI_OVER_2)));
+		spot->setSpotDirection(vec3(0.0f, 0.0f, -1.0f));
 
 		//Add component back to the game object
 		lightObject->addComponent(dir);
@@ -117,14 +127,21 @@ protected:
 		this->addChildGameObject(cameraObject);
 		this->addChildGameObject(secondCameraObject);
 
+		secondGameObject->addChildGameObject(cameraObject);
+
 		// Rotate the box game object that contains the cube
 		firstGameObject->setRotation(glm::rotate(PI / 4.0f, UNIT_Y_V3)); //******************* Week 8 ********************
 		secondGameObject->setPosition(vec3(3.0f, 1.0f, 1.0f));
 		thirdGameObject->setPosition(vec3(-5.0f, 0.0f, 0.0f));
 		lightObject->setPosition(vec3(0.0f, 5.0f, 0.0f));
-		//secondcameraObject->setPosition(vec3(secondGameObject->getPosition().x, secondGameObject->getPosition().y, secondGameObject->getPosition().z));
-		cameraObject->setPosition(vec3(0.0f, 20.0f, 0.0f), WORLD);
-		cameraObject->setRotation(glm::rotate(-PI_OVER_2, UNIT_X_V3), WORLD);
+		
+		//second camera from above
+		secondCameraObject->setPosition(vec3(0.0f, 30.0f, 30.0f));
+		secondCameraObject->setRotation(glm::rotate(-PI/3, UNIT_X_V3));
+
+		//first camera
+		cameraObject->setPosition(vec3(0.0f, 20.0f, 0.0f), LOCAL);
+		cameraObject->setRotation(glm::rotate(-PI_OVER_2, UNIT_X_V3), LOCAL);
 
 	}; // end loadScene
 

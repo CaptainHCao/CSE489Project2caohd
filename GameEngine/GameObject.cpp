@@ -36,7 +36,8 @@ GameObject::~GameObject()
 
 	}
 
-	deleteAllChildren();
+	//this cause error
+	//deleteAllChildren();
 
 } // end GameObject destructor
 

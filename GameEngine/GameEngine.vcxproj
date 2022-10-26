@@ -133,6 +133,7 @@
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ContinuousRotateComponent.h" />
+    <ClInclude Include="CylinderMeshComponent.h" />
     <ClInclude Include="DirectionalLightComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEngine.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="BuildShaderProgram.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ContinuousRotateComponent.cpp" />
+    <ClCompile Include="CylinderMeshComponent.cpp" />
     <ClCompile Include="DirectionalLightComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />

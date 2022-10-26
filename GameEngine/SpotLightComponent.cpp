@@ -2,8 +2,6 @@
 
 SpotLightComponent::SpotLightComponent(int controlKey, int updateOrder) : LightComponent(controlKey) 
 {
-	setSpotCutoffCos(glm::cos(glm::radians(PI_OVER_2)));
-	setSpotDirection(vec3(0.0f, 0.0f, -1.0f));
 }
 
 void SpotLightComponent::update(const float& deltaTime)
