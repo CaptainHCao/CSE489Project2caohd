@@ -76,7 +76,7 @@ protected:
 		//Add a F15 aircraft
 		GameObject* secondGameObject = new GameObject();
 
-		secondGameObject->addComponent(new ModelMeshComponent("jet_models/F-15C_Eagle.obj", shaderProgram));
+		secondGameObject->addComponent(new ModelMeshComponent("my_objects/car.obj", shaderProgram));
 
 		secondGameObject->addComponent(new SteerComponent(60.0f));
 		secondGameObject->addComponent(new TranslateComponent(vec3(-3.0f, 0.0f, -4.0f)));
@@ -98,11 +98,25 @@ protected:
 		waypoints.push_back(vec3(8.0f, 0.0f, 10.0f));
 		thirdGameObject->addComponent(new WaypointComponent(waypoints));
 
+		//Create camera object
+		GameObject* cameraObject = new GameObject();
+		CameraComponent* firstCamera = new CameraComponent(0, 45.0);
+		
+		GameObject* secondCameraObject = new GameObject();
+		CameraComponent* secondCamera = new CameraComponent(1, 60.0);
+		secondCamera->setViewPort(0.7, 0.7, 0.3, 0.3);
+
+		//Add component to object
+		cameraObject->addComponent(firstCamera);
+		secondCameraObject->addComponent(secondCamera);
+		
 		// Add the game object to the game
 		this->addChildGameObject(firstGameObject);
 		this->addChildGameObject(secondGameObject);
 		this->addChildGameObject(thirdGameObject);
 		this->addChildGameObject(lightObject);
+		this->addChildGameObject(cameraObject);
+		this->addChildGameObject(secondCameraObject);
 
 		// Rotate the box game object that contains the cube
 		firstGameObject->setRotation(glm::rotate(PI / 4.0f, UNIT_Y_V3)); //******************* Week 8 ********************
