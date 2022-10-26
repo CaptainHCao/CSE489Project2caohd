@@ -6,7 +6,7 @@ CameraComponent::CameraComponent(const int& depth, const float& vertFovDegrees,
 	const float& nearClip, const float& farClip) : Component(), cameraDepth(depth), vertFovRadians(glm::radians(vertFovDegrees)), nearClip(nearClip), farClip(farClip)
 {
 	addCamera();
-	setCameraTransformations();
+	//setCameraTransformations();
 }
 
 std::vector<CameraComponent*> CameraComponent::activeCameras;
@@ -18,13 +18,13 @@ void CameraComponent::setCameraTransformations()
 	mat4 projMat = glm::perspective(vertFovRadians, aspect, nearClip, farClip);
 	SharedTransformations::setProjectionMatrix(projMat);
 
-	mat4 modelMat = owningGameObject->getOwningGame()->getModelingTransformation();
+	mat4 modelMat = owningGameObject->getModelingTransformation();
 
 	SharedTransformations::setModelingMatrix(modelMat);
 
-	mat4 viewingTrans = glm::lookAt(vec3(0.0f, 50.0f, 00.0f), vec3(0.0f, 0.0f, 0.0f),
-		vec3(0.0f, 0.0f, -1.0f));
-	//mat4 viewingTrans = glm::inverse(modelMat);
+	/*mat4 viewingTrans = glm::lookAt(vec3(0.0f, 50.0f, 00.0f), vec3(0.0f, 0.0f, 0.0f),
+		vec3(0.0f, 0.0f, -1.0f));*/
+	mat4 viewingTrans = glm::inverse(modelMat);
 	SharedTransformations::setViewMatrix(viewingTrans);
 
 	glViewport(this->xLowerLeft * dim.x, this->yLowerLeft * dim.y, this->viewPortWidth * dim.x, this->viewPortHeight * dim.y);

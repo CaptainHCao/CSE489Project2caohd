@@ -14,8 +14,9 @@ LightComponent::LightComponent(int controlKey, int updateOrder)
 			break;
 		}
 	}
+	setAmbientColor(vec4(0.1, 0.1, 0.1, 1.0));
 	setDiffuseColor(WHITE_RGBA);
-	//setSpecularColor(WHITE_RGBA);
+	setSpecularColor(WHITE_RGBA);
 	setEnabled(true);
 }
 
