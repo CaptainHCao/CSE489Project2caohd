@@ -152,6 +152,10 @@
     <ClInclude Include="SharedMaterials.h" />
     <ClInclude Include="SharedTransformations.h" />
     <ClInclude Include="SharedUniformBlock.h" />
+    <ClInclude Include="SoundBaseComponent.h" />
+    <ClInclude Include="SoundEngine.h" />
+    <ClInclude Include="SoundListenerComponent.h" />
+    <ClInclude Include="SoundSourceComponent.h" />
     <ClInclude Include="SphereMeshComponent.h" />
     <ClInclude Include="SpotLightComponent.h" />
     <ClInclude Include="SteerComponent.h" />
@@ -183,6 +187,8 @@
     <ClCompile Include="SharedTransformations.cpp" />
     <ClCompile Include="SharedUniformBlock.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="SoundBaseComponent.cpp" />
+    <ClCompile Include="SoundEngine.cpp" />
     <ClCompile Include="SphereMeshComponent.cpp" />
     <ClCompile Include="SpotLightComponent.cpp" />
     <ClCompile Include="SteerComponent.cpp" />

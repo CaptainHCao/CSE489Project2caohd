@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include "SoundEngine.h"
 
 #define VERBOSE false
 
@@ -51,8 +52,10 @@ bool Game::initializeGame()
 	bool windowInit = initializeRenderWindow();
 	bool graphicsInit = initializeGraphics();
 
+	bool soundInit = SoundEngine::Init();
+
 	// Check if all libraries initialized correctly
-	if (windowInit && graphicsInit )
+	if (windowInit && graphicsInit && soundInit)
 	{
 		// Set the owner of all the GameObject (temporary)
 		GameObject::SetOwningGame(this);
@@ -267,6 +270,8 @@ void Game::updateGame()
 		// Add pending, delete removed, and reparent
 		GameObject::ManageGameObjectChanges(); 
 
+		SoundEngine::Update();
+
 		// Update the last time the game was updated
 		lastRenderTime = currentTime; 
 	}
@@ -314,6 +319,8 @@ void Game::shutdown()
 
 	// Delete all shader programs that have been created
 	deleteAllShaderPrograms();
+
+	SoundEngine::Stop();
 
 } // end shutDown
 
