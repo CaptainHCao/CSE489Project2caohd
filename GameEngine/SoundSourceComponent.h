@@ -175,5 +175,6 @@ protected:
 
 	ALuint buffer;
 	ALuint source;
+
 };
 

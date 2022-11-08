@@ -1,22 +1,36 @@
 #pragma once
+
 #include "Component.h"
+
 class WaypointComponent : public Component
 {
 public:
-    WaypointComponent(std::vector<vec3> waypoints, float speed = 10.0f, int updateOrder = 100);
 
-    // Positions the object at the first waypoint
-    virtual void initialize() override;
+	/**
+	 * @fn	WaypointComponent::WaypointComponent(std::vector< glm::vec3> waypoints, vec3 velocity = vec3(10, 0, 0));
+	 *
+	 * @brief	Constructor
+	 *
+	 * @param	waypoints	The waypoints.
+	 * @param	velocity 	(Optional) The velocity.
+	 */
+	WaypointComponent(std::vector< glm::vec3> waypoints, vec3 velocity = vec3(10, 0, 0));
 
-    // Causes the game object to loop through a series of positions repeatedly
-    virtual void update(const float& deltaTime) override;
+	virtual void update(const float& deltaTime) override;
 
 protected:
 
-    std::vector<vec3> waypoints;
+	int getNexWaypointIndex();
+	vec3 getDirectionToNextWaypoint();
+	GLfloat distanceToTargetWaypoint();
 
-    float speed = 10.0f;
+	std::vector< glm::vec3> waypoints;
+
+	vec3 velocity;
+	float speed;
+
+	int targetWaypointIndex = 0;
+
 
 };
-
 

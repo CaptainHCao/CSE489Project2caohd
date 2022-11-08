@@ -270,6 +270,7 @@ void Game::updateGame()
 		// Add pending, delete removed, and reparent
 		GameObject::ManageGameObjectChanges(); 
 
+		//update soundengine
 		SoundEngine::Update();
 
 		// Update the last time the game was updated
@@ -320,6 +321,7 @@ void Game::shutdown()
 	// Delete all shader programs that have been created
 	deleteAllShaderPrograms();
 
+	//shutdown the soundengine
 	SoundEngine::Stop();
 
 } // end shutDown

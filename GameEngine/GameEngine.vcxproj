@@ -159,6 +159,7 @@
     <ClInclude Include="SphereMeshComponent.h" />
     <ClInclude Include="SpotLightComponent.h" />
     <ClInclude Include="SteerComponent.h" />
+    <ClInclude Include="SteeringComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TranslateComponent.h" />
     <ClInclude Include="WaypointComponent.h" />
@@ -189,9 +190,12 @@
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="SoundBaseComponent.cpp" />
     <ClCompile Include="SoundEngine.cpp" />
+    <ClCompile Include="SoundSourceComponent.cpp" />
+    <ClCompile Include="SoundListenerComponent.cpp" />
     <ClCompile Include="SphereMeshComponent.cpp" />
     <ClCompile Include="SpotLightComponent.cpp" />
     <ClCompile Include="SteerComponent.cpp" />
+    <ClCompile Include="SteeringComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TranslateComponent.cpp" />
     <ClCompile Include="WaypointComponent.cpp" />

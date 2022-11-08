@@ -23,6 +23,7 @@
 #include "TranslateComponent.h"
 #include "ContinuousRotateComponent.h"
 #include "SteerComponent.h"
+#include "SteeringComponent.h"
 #include "WaypointComponent.h"
 
 
@@ -35,3 +36,8 @@
 
 //Camera
 #include "CameraComponent.h"
+
+//Sound
+#include "SoundEngine.h"
+#include "SoundSourceComponent.h"
+#include "SoundListenerComponent.h"

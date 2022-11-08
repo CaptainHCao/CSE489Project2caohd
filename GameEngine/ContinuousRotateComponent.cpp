@@ -7,7 +7,7 @@ ContinuousRotateComponent::ContinuousRotateComponent(float rotationRate, vec3 ax
 //Passively rotate every update
 void ContinuousRotateComponent::update(const float& deltaTime)
 {
-	mat4 rot = owningGameObject->getRotation();
+	mat4 rot = owningGameObject->getRotation(LOCAL);
 	rot *= glm::rotate(glm::radians(rotationRate) * deltaTime, axis);
-	this->owningGameObject->setRotation(rot);
+	this->owningGameObject->setRotation(rot, LOCAL);
 }
