@@ -43,7 +43,7 @@ protected:
 		sphereMat.setDiffuseTexture(Texture::GetTexture("Textures/sun.jpg")->getTextureObject());
 
 		// Instantiate a box shaped mesh
-		SphereMeshComponent* sphere = new SphereMeshComponent(shaderProgram, sphereMat);
+		SphereMeshComponent* sphere = new SphereMeshComponent(shaderProgram, sphereMat, 2.0f);
 
 		// Create a container to hold the box
 		GameObject* firstGameObject = new GameObject(); 
@@ -63,7 +63,7 @@ protected:
 
 		// Add the box to a GameObject
 		firstGameObject->addComponent(sphere); 
-		firstGameObject->addComponent(new ContinuousRotateComponent(20.0f, UNIT_Y_V3, 100));
+		firstGameObject->addComponent(new SpinComponent(20.0f, UNIT_Y_V3, 100));
 		firstGameObject->addComponent(spaceSound);
 
 		////Add a car
@@ -91,61 +91,61 @@ protected:
 		earthSound->setLooping(true);
 
 		// Instantiate a box shaped mesh
-		SphereMeshComponent* earth = new SphereMeshComponent(shaderProgram, earthMat);
+		SphereMeshComponent* earth = new SphereMeshComponent(shaderProgram, earthMat, 1.0f);
 
 		earthGameObject->addComponent(earth);
 		earthGameObject->addComponent(earthSound);
 
-		std::vector<vec3> earthwaypoints;
-		earthwaypoints.push_back(vec3(1.0f, 0.0f, 0.0f));
-		earthwaypoints.push_back(vec3(0.0f, 0.0f, 1.0f));
-		earthwaypoints.push_back(vec3(-1.0f, 0.0f, 0.0f));
-		earthwaypoints.push_back(vec3(0.0f, 0.0f, -1.0f));
+		//********************************************
+		GameObject* moonGameObject = new GameObject();
 
-		GameObject* earthTranslateGameObject = new GameObject();
-		earthTranslateGameObject->addComponent(new SteeringComponent(earthwaypoints, glm::vec3(20.0f, 0.0f, 0.0f)));
-
-		GameObject* earthSpinGameObject = new GameObject();
-		earthSpinGameObject->addComponent(new ContinuousRotateComponent(100.0f, UNIT_Y_V3, 100));
-
-		earthTranslateGameObject->addChildGameObject(earthSpinGameObject);
-		earthSpinGameObject->addChildGameObject(earthGameObject);
-
-		
-		//Moon object
-		GameObject* earthMoonGameObject = new GameObject();
-
-		Material earthMoonMat;
-		earthMoonMat.diffuseMat = BLUE_RGBA;
+		Material moonMat;
+		moonMat.diffuseMat = BLUE_RGBA;
 
 		//create texture object                              
-		earthMoonMat.setDiffuseTexture(Texture::GetTexture("Textures/earth.jpg")->getTextureObject());
+		moonMat.setDiffuseTexture(Texture::GetTexture("Textures/moon.jpg")->getTextureObject());
 
 		//earth sound 
-		SoundSourceComponent* earthMoonSound = new SoundSourceComponent("Sounds/space.wav");
-		earthMoonSound->play();
-		earthMoonSound->setLooping(true);
+		SoundSourceComponent* moonSound = new SoundSourceComponent("Sounds/space.wav");
+		moonSound->play();
+		moonSound->setLooping(true);
 
 		// Instantiate a box shaped mesh
-		SphereMeshComponent* earthMoon = new SphereMeshComponent(shaderProgram, earthMoonMat);
+		SphereMeshComponent* moon = new SphereMeshComponent(shaderProgram, moonMat, 0.5f);
 
-		earthMoonGameObject->addComponent(earthMoon);
-		earthMoonGameObject->addComponent(earthMoonSound);
+		moonGameObject->addComponent(moon);
+		moonGameObject->addComponent(moonSound);
 
-		std::vector<vec3> earthmoonwaypoints;
-		earthmoonwaypoints.push_back(vec3(1.0f, 0.0f, 0.0f));
-		earthmoonwaypoints.push_back(vec3(0.0f, 0.0f, 1.0f));
-		earthmoonwaypoints.push_back(vec3(-1.0f, 0.0f, 0.0f));
-		earthmoonwaypoints.push_back(vec3(0.0f, 0.0f, -1.0f));
+		//********************************************
 
-		GameObject* earthMoonTranslateGameObject = new GameObject();
-		earthTranslateGameObject->addComponent(new SteeringComponent(earthmoonwaypoints, glm::vec3(20.0f, 0.0f, 0.0f)));
+		GameObject* earthSpinGameObject = new GameObject();
+		earthSpinGameObject->addComponent(new SpinComponent(100.0f, UNIT_Y_V3, 100));
 
-		GameObject* earthMoonSpinGameObject = new GameObject();
-		earthMoonSpinGameObject->addComponent(new ContinuousRotateComponent(100.0f, UNIT_Y_V3, 100));
+		earthGameObject->addComponent(new SpinComponent(100.0f));
 
-		earthMoonTranslateGameObject->addChildGameObject(earthMoonSpinGameObject);
-		earthMoonSpinGameObject->addChildGameObject(earthMoonGameObject);
+		GameObject* earthLocationGameObject = new GameObject();
+		earthLocationGameObject->setPosition(vec3(5.0f, 0.0f, 0.0f), LOCAL);
+
+
+		GameObject* moonSpinGameObject = new GameObject();
+		moonSpinGameObject->addComponent(new SpinComponent(300.0f, UNIT_Y_V3, 100));
+
+		moonGameObject->setPosition(vec3(2.0f, 0.0f, 0.0f), LOCAL);
+
+		moonGameObject->addComponent(new SpinComponent(200.0f));
+
+		firstGameObject->addChildGameObject(earthSpinGameObject);
+		earthSpinGameObject->addChildGameObject(earthLocationGameObject);
+		earthLocationGameObject->addChildGameObject(earthGameObject);
+		earthLocationGameObject->addChildGameObject(moonSpinGameObject);
+		moonSpinGameObject->addChildGameObject(moonGameObject);
+
+
+
+
+
+
+
 
 
 		//Create camera object
@@ -191,9 +191,7 @@ protected:
 		this->addChildGameObject(lightObject);
 		this->addChildGameObject(cameraObject);
 		this->addChildGameObject(secondCameraObject);
-
-		//Earth game objects
-		this->addChildGameObject(earthTranslateGameObject);
+		
 
 		//secondGameObject->addChildGameObject(cameraObject);
 
@@ -207,7 +205,7 @@ protected:
 		secondCameraObject->setRotation(glm::rotate(-PI/3, UNIT_X_V3));
 
 		//first camera
-		cameraObject->setPosition(vec3(0.0f, 50.0f, 0.0f), LOCAL);
+		cameraObject->setPosition(vec3(0.0f, 20.0f, 0.0f), LOCAL);
 		cameraObject->setRotation(glm::rotate(-PI/2, UNIT_X_V3), LOCAL);
 
 	}; // end loadScene

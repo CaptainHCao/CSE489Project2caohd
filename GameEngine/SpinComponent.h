@@ -3,8 +3,14 @@
 class SpinComponent :
     public Component
 {
-    SpinComponent(vec3 axis, vec3 velocity = vec3(10, 0, 0));
+public:
+    SpinComponent(float rotationRate = 10.0f, vec3 axis = UNIT_Y_V3, int updateOrder = 100);
 
     virtual void update(const float& deltaTime) override;
+
+protected:
+    vec3 axis;
+
+    float rotationRate;
 };
 
