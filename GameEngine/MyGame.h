@@ -63,36 +63,90 @@ protected:
 
 		// Add the box to a GameObject
 		firstGameObject->addComponent(sphere); 
-		firstGameObject->addComponent(new ArrowRotateComponent( 100));
-		firstGameObject->addComponent(new MakeVisableComponent(GLFW_KEY_B));
 		firstGameObject->addComponent(new ContinuousRotateComponent(20.0f, UNIT_Y_V3, 100));
 		firstGameObject->addComponent(spaceSound);
 
 		////Add a car
-		//GameObject* secondGameObject = new GameObject();
+		GameObject* secondGameObject = new GameObject();
 
-		//secondGameObject->addComponent(new ModelMeshComponent("my_objects/car.obj", shaderProgram));
-		//secondGameObject->addComponent(new TranslateComponent(vec3(-3.0f, 0.0f, -4.0f)));
-		//secondGameObject->addComponent(new SteerComponent(60.0f));
+		SoundListenerComponent* soundListener = new SoundListenerComponent();
 
+		secondGameObject->addComponent(new ModelMeshComponent("my_objects/car.obj", shaderProgram));
+		secondGameObject->addComponent(new TranslateComponent(vec3(-3.0f, 0.0f, -4.0f)));
+		secondGameObject->addComponent(new SteerComponent(60.0f));
+		secondGameObject->addComponent(soundListener);
 	
-		////third game object - a red box
-		//GameObject* thirdGameObject = new GameObject();
-		//Material boxMat1;
-		//boxMat1.diffuseMat = RED_RGBA;
+		////third game object - earth
+		GameObject* earthGameObject = new GameObject();
+		
+		Material earthMat;
+		earthMat.diffuseMat = BLUE_RGBA;
 
-		//BoxMeshComponent* box1 = new BoxMeshComponent(boxMat1, shaderProgram, 2.0f, 2.0f, 2.0f);
+		//create texture object                              
+		earthMat.setDiffuseTexture(Texture::GetTexture("Textures/earth.jpg")->getTextureObject());
 
-		//thirdGameObject->addComponent(box1);
+		//earth sound 
+		SoundSourceComponent* earthSound = new SoundSourceComponent("Sounds/space.wav");
+		earthSound->play();
+		earthSound->setLooping(true);
 
-		////create waypoints for thridObject
-		//std::vector<vec3> waypoints;
-		//waypoints.push_back(vec3(10.0f, 0.0f, 5.0f));
-		//waypoints.push_back(vec3(5.0f, 0.0f, 0.0f));
-		//waypoints.push_back(vec3(8.0f, 0.0f, 10.0f));
-		////thirdGameObject->addComponent(new WaypointComponent(waypoints));
-		//thirdGameObject->addComponent(new SteeringComponent(waypoints, glm::vec3(20.0f, 0.0f, 0.0f)));
-		//thirdGameObject->addComponent(new ContinuousRotateComponent(20.0f, UNIT_Y_V3, 100));
+		// Instantiate a box shaped mesh
+		SphereMeshComponent* earth = new SphereMeshComponent(shaderProgram, earthMat);
+
+		earthGameObject->addComponent(earth);
+		earthGameObject->addComponent(earthSound);
+
+		std::vector<vec3> earthwaypoints;
+		earthwaypoints.push_back(vec3(1.0f, 0.0f, 0.0f));
+		earthwaypoints.push_back(vec3(0.0f, 0.0f, 1.0f));
+		earthwaypoints.push_back(vec3(-1.0f, 0.0f, 0.0f));
+		earthwaypoints.push_back(vec3(0.0f, 0.0f, -1.0f));
+
+		GameObject* earthTranslateGameObject = new GameObject();
+		earthTranslateGameObject->addComponent(new SteeringComponent(earthwaypoints, glm::vec3(20.0f, 0.0f, 0.0f)));
+
+		GameObject* earthSpinGameObject = new GameObject();
+		earthSpinGameObject->addComponent(new ContinuousRotateComponent(100.0f, UNIT_Y_V3, 100));
+
+		earthTranslateGameObject->addChildGameObject(earthSpinGameObject);
+		earthSpinGameObject->addChildGameObject(earthGameObject);
+
+		
+		//Moon object
+		GameObject* earthMoonGameObject = new GameObject();
+
+		Material earthMoonMat;
+		earthMoonMat.diffuseMat = BLUE_RGBA;
+
+		//create texture object                              
+		earthMoonMat.setDiffuseTexture(Texture::GetTexture("Textures/earth.jpg")->getTextureObject());
+
+		//earth sound 
+		SoundSourceComponent* earthMoonSound = new SoundSourceComponent("Sounds/space.wav");
+		earthMoonSound->play();
+		earthMoonSound->setLooping(true);
+
+		// Instantiate a box shaped mesh
+		SphereMeshComponent* earthMoon = new SphereMeshComponent(shaderProgram, earthMoonMat);
+
+		earthMoonGameObject->addComponent(earthMoon);
+		earthMoonGameObject->addComponent(earthMoonSound);
+
+		std::vector<vec3> earthmoonwaypoints;
+		earthmoonwaypoints.push_back(vec3(1.0f, 0.0f, 0.0f));
+		earthmoonwaypoints.push_back(vec3(0.0f, 0.0f, 1.0f));
+		earthmoonwaypoints.push_back(vec3(-1.0f, 0.0f, 0.0f));
+		earthmoonwaypoints.push_back(vec3(0.0f, 0.0f, -1.0f));
+
+		GameObject* earthMoonTranslateGameObject = new GameObject();
+		earthTranslateGameObject->addComponent(new SteeringComponent(earthmoonwaypoints, glm::vec3(20.0f, 0.0f, 0.0f)));
+
+		GameObject* earthMoonSpinGameObject = new GameObject();
+		earthMoonSpinGameObject->addComponent(new ContinuousRotateComponent(100.0f, UNIT_Y_V3, 100));
+
+		earthMoonTranslateGameObject->addChildGameObject(earthMoonSpinGameObject);
+		earthMoonSpinGameObject->addChildGameObject(earthMoonGameObject);
+
 
 		//Create camera object
 		GameObject* cameraObject = new GameObject();
@@ -132,11 +186,14 @@ protected:
 
 		// Add the game object to the game
 		this->addChildGameObject(firstGameObject);
-		/*this->addChildGameObject(secondGameObject);
-		this->addChildGameObject(thirdGameObject);*/
+		this->addChildGameObject(secondGameObject);
+		//this->addChildGameObject(thirdGameObject);
 		this->addChildGameObject(lightObject);
 		this->addChildGameObject(cameraObject);
 		this->addChildGameObject(secondCameraObject);
+
+		//Earth game objects
+		this->addChildGameObject(earthTranslateGameObject);
 
 		//secondGameObject->addChildGameObject(cameraObject);
 
@@ -144,15 +201,14 @@ protected:
 		//firstGameObject->setRotation(glm::rotate(PI / 4.0f, UNIT_Y_V3)); //******************* Week 8 ********************
 		//secondGameObject->setPosition(vec3(3.0f, 1.0f, 1.0f));
 		//thirdGameObject->setPosition(vec3(0.0f, 0.0f, 0.0f));
-		lightObject->setPosition(vec3(0.0f, 0.0f, 0.0f));
-		firstGameObject->setPosition(vec3(0.0f, 0.0f, 0.0f));
+		
 		//second camera from above
 		secondCameraObject->setPosition(vec3(0.0f, 30.0f, 30.0f));
 		secondCameraObject->setRotation(glm::rotate(-PI/3, UNIT_X_V3));
 
 		//first camera
-		cameraObject->setPosition(vec3(0.0f, 20.0f, 15.0f), LOCAL);
-		cameraObject->setRotation(glm::rotate(-PI/4, UNIT_X_V3), LOCAL);
+		cameraObject->setPosition(vec3(0.0f, 50.0f, 0.0f), LOCAL);
+		cameraObject->setRotation(glm::rotate(-PI/2, UNIT_X_V3), LOCAL);
 
 	}; // end loadScene
 

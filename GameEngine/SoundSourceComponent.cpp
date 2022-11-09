@@ -23,6 +23,20 @@ SoundSourceComponent::~SoundSourceComponent()
 void SoundSourceComponent::update(const float& deltaTime)
 {
 	SoundBaseComponent::update(deltaTime);
+
+	float orientation[6];
+	orientation[0] = this->soundForward.x; //forward vector x value
+	orientation[1] = this->soundForward.y; //forward vector y value
+	orientation[2] = this->soundForward.z; //forward vector z value
+	orientation[3] = this->soundUp.x; //up vector x value
+	orientation[4] = this->soundUp.y; //up vector y value
+	orientation[5] = this->soundUp.z; //up vector z value
+
+	alSource3f(this->source, AL_POSITION, soundPosition.x, soundPosition.y, soundPosition.z);
+	alSource3f(this->source, AL_VELOCITY, soundVelocity.x, soundVelocity.y, soundVelocity.z);
+	alSource3f(this->source, AL_DIRECTION, soundForward.x, soundForward.y, soundForward.z);
+	alSourcefv(this->source, AL_ORIENTATION, orientation);
+
 	SoundEngine::check_al_errors();
 }
 

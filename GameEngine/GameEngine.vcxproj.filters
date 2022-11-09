@@ -123,6 +123,9 @@
     <ClInclude Include="SteeringComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpinComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuildShaderProgram.cpp">
@@ -225,6 +228,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundListenerComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -25,7 +25,7 @@
 #include "SteerComponent.h"
 #include "SteeringComponent.h"
 #include "WaypointComponent.h"
-
+#include "SpinComponent.h"
 
 // Lighting
 #include "SharedLighting.h"
