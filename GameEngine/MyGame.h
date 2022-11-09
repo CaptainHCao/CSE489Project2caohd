@@ -205,8 +205,8 @@ protected:
 		secondCameraObject->setRotation(glm::rotate(-PI/3, UNIT_X_V3));
 
 		//first camera
-		cameraObject->setPosition(vec3(0.0f, 20.0f, 0.0f), LOCAL);
-		cameraObject->setRotation(glm::rotate(-PI/2, UNIT_X_V3), LOCAL);
+		cameraObject->setPosition(vec3(0.0f, 00.0f, 20.0f), LOCAL);
+		//cameraObject->setRotation(glm::rotate(-PI/2, UNIT_X_V3), LOCAL);
 
 	}; // end loadScene
 
