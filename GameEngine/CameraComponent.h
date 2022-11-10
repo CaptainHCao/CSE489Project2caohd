@@ -7,20 +7,23 @@ class CameraComponent : public Component
 public:
 
 	/**
-	 * @fn	CameraComponent::CameraComponent( const int & depth = 0, const float & vertFovDegrees = 30.0f, const float & nearClip = 1.0f, const float & farClip = 1000.0f );
+	 * @fn	CameraComponent::CameraComponent( int cameraDepth = 0,
+	 * 										  float vertFovDegrees = 30.0f,
+	 * 										  float nearClip = 1.0f,
+	 * 										  float farClip = 1000.0f );
 	 *
-	 * @brief	Constructor. By default, Cameras render to the entire window with a depth of zero.
-	 * 			Cameras are added to the static activeCameras vector when GameObject::addComponent is
-	 * 			called to place them in a GameObject container. Camera with a higher depth value are 
-	 * 			render on top of those with a lower depth.
+	 * @brief	Constructor. By default, Cameras render to the entire window with
+	 * 			a depth of zero. Cameras are added to the static activeCameras vector
+	 * 			when GameObject::addComponent is called to place them in a GameObject
+	 * 			container. The implementation uses the updater order as the depth value.
 	 *
-	 * @param 	depth		  	(Optional) The Camera depth.
+	 * @param 	updateOrder   	(Optional) The update order. Used as the Camera depth.
 	 * @param 	vertFovDegrees	(Optional) The vertical field of view (fov) in degrees.
 	 * @param 	nearClip	  	(Optional) Distance to the near clipping plane.
 	 * @param 	farClip		  	(Optional) Distance to the far clipping plane.
 	 */
-	CameraComponent( const int & depth = 0, const float & vertFovDegrees = 30.0f, 
-					 const float & nearClip = 1.0f, const float & farClip = 1000.0f );
+	CameraComponent(const int& cameraDepth = 0, const float& vertFovDegrees = 30.0f,
+		const float& nearClip = 1.0f, const float& farClip = 1000.0f);
 
 	/**
 	 * @fn	void CameraComponent::setViewingTransformation();
@@ -28,10 +31,10 @@ public:
 	 * @brief	Called before the scene is rendered from the perspective of this
 	 * 			camera. Sets the view port (using glViewport), projection matrix,
 	 * 			and viewing transformation based upon this properties of the Camera
-	 * 			and the GameObject that holds it. The scene is rendered in the 
-	 * 			specified view port without distortion. 
-	 * 			
-	 *			Calls: 
+	 * 			and the GameObject that holds it. The scene is rendered in the
+	 * 			specified view port without distortion.
+	 *
+	 *			Calls:
 	 *				Game::getWindowDimensions()
 	 *				SceneGraphNode::getModelingTransformation
 	 *				SharedTransformations::setViewMatrix
@@ -39,26 +42,25 @@ public:
 	 * 			Called by:
 	 * 				Game::renderScene
 	 *
-	 * 			
-	 */ 			
+	 *
+	 */
 	void setCameraTransformations();
 
 	/**
-	 * @fn	void CameraComponent::setViewPort( GLfloat xLowerLeft, GLfloat yLowerLeft, 
+	 * @fn	void CameraComponent::setViewPort( GLfloat xLowerLeft, GLfloat yLowerLeft,
 	 * 										   GLfloat viewPortWidth, GLfloat viewPortHeight);
 	 *
-	 * @brief	Sets the rendering area for the camera. In normalized coordinate the 
+	 * @brief	Sets the rendering area for the camera. In normalized coordinate the
 	 * 			width and height of the viewport are 1.0.
 	 *
-	 * @param	xLowerLeft	  	normalized x coordinate of the lower left hand corner 
+	 * @param	xLowerLeft	  	normalized x coordinate of the lower left hand corner
 	 * 							of the viewport.
-	 * @param	yLowerLeft	  	normalized y coordinate of the lower left hand corner 
+	 * @param	yLowerLeft	  	normalized y coordinate of the lower left hand corner
 	 * 							of the viewport.
 	 * @param	viewPortWidth 	normalized width of the view port in pixels.
 	 * @param	viewPortHeight	normalized height of the view port in pixels.
 	 */
-	void setViewPort( GLfloat xLowerLeft, GLfloat yLowerLeft, 
-					  GLfloat viewPortWidth, GLfloat viewPortHeight);
+	void setViewPort(GLfloat xLowerLeft, GLfloat yLowerLeft, GLfloat viewPortWidth, GLfloat viewPortHeight);
 
 	/**
 	 * @fn	CameraComponent
@@ -66,6 +68,11 @@ public:
 	 * @brief	Removes this camera component from the list of active cameras.
 	 */
 	~CameraComponent();
+
+
+	void setSkyBox(class SkyBoxComponent* skyBox) { this->skyBox = skyBox; }
+
+	class SkyBoxComponent* getSkyBox() { return this->skyBox; }
 
 	/**
 	 * @fn	void CameraComponent::removeCamera();
@@ -83,23 +90,22 @@ public:
 	void addCamera();
 
 	/**
-	 * @fn	static bool CameraComponent::CompareUpdateOrder(const Component* left, const Component* right)
+	 * @fn	static bool CameraComponent::CompareCameraDepth(const CameraComponent* left, const CameraComponent* right)
 	 *
-	 * @brief	Binary function that accepts two CameraComponents to determine which has the lower
-	 * 			depth value.
+	 * @brief	Binary function that accepts two Components to determine which has the lower
+	 * 			updateOrder value.
 	 *
 	 * @param 	left 	The left.
 	 * @param 	right	The right.
 	 *
-	 * @returns	true if the left argument has lower depth than the right. false is returned if
-	 * 			the right has a lower depth. Allows CameraComponents to be sorted based on
-	 * 			dept.
+	 * @returns	true if the left argument has lower camera depth than the right. false is returned if
+	 * 			the right has a lower camera depth. Allows Cameras to be sorted based on
+	 * 			camera depth.
 	 */
-	static bool CompareUpdateOrder(const CameraComponent* left, const CameraComponent* right)
+	static bool CompareCameraDepth(const CameraComponent* left, const CameraComponent* right)
 	{
 		return (left->cameraDepth < right->cameraDepth);
 	}
-
 
 	/**
 	 * @fn	static std::vector<CameraComponent*> CameraComponent::getActiveCameras()
@@ -109,6 +115,15 @@ public:
 	 * @returns	Null if it fails, else the active cameras.
 	 */
 	static const std::vector<CameraComponent*> GetActiveCameras();
+
+	/**
+	 * @fn	void CameraComponent::setCameraClearColor(vec4 clearColor);
+	 *
+	 * @brief	Sets camera clear color for the camear viewport
+	 *
+	 * @param 	clearColor	The clear color.
+	 */
+	void setCameraClearColor(vec4 clearColor);
 
 protected:
 
@@ -131,14 +146,19 @@ protected:
 	/** @brief	Distance to the far clipping plane for this camera. */
 	float farClip;
 
+	class SkyBoxComponent* skyBox = nullptr;
+
+	/** @brief	Depth of the camera Higer dept cameras render on top of others.*/
+	int cameraDepth = 0;
+
+
+	/** @brief	The camera clear color Color to which the viewport will be cleared.*/
+	vec4 cameraClearColor = 0.5f * WHITE_RGBA;
+
 	/**
 	 * @brief	Vector containing the Cameras that are active. The vector should be sorted based
 	 * 			upon the depth values of the cameras. 
 	 */
 	static std::vector<CameraComponent*> activeCameras;
-
-
-	/** @brief	Depth of the camera */
-	int cameraDepth = 0;
 
 };

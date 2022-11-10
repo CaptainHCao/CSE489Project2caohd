@@ -107,10 +107,17 @@ void SceneGraphNode::setPosition(vec3 position, Frame frame)
 	}
 	else {
 
-		mat4 worldT = getWorldTransform();
-		mat4 invParentT = glm::inverse(parent->getWorldTransform());
-		setPositionVec3ForTransform(worldT, position);
-		localTransform = invParentT * worldT;
+		if (parent != nullptr) {
+
+			mat4 worldT = getWorldTransform();
+			mat4 invParentT = glm::inverse(parent->getWorldTransform());
+			setPositionVec3ForTransform(worldT, position);
+			localTransform = invParentT * worldT;
+		}
+		else {
+			std::cerr << "ERROR: Setting position relative to WORLD coordinates"
+				<< " with null parent. \nAttach GameObject to scene graph." << endl;
+		}
 	}
 
 } // end setPosition
@@ -125,9 +132,17 @@ void SceneGraphNode::setRotation(glm::mat4 rotation, Frame frame)
 	}
 	else {
 
-		glm::mat4 parentWorldRotation = parent->getRotation(Frame::WORLD);
-		glm::mat4 newRotation = glm::inverse(parentWorldRotation) * rotation;
-		setRotationMat3ForTransform(localTransform, newRotation);
+		if (parent != nullptr) {
+
+			glm::mat4 parentWorldRotation = parent->getRotation(Frame::WORLD);
+			glm::mat4 newRotation = glm::inverse(parentWorldRotation) * rotation;
+			setRotationMat3ForTransform(localTransform, newRotation);
+
+		}
+		else {
+			std::cerr << "ERROR: Setting rotation relative to WORLD coordinates"
+					  << " with null parent. \nAttach GameObject to scene graph." << endl;
+		}
 	}
 
 } // end setRotation
@@ -142,11 +157,17 @@ void SceneGraphNode::setScale(const vec3& scale, Frame frame)
 	}
 	else {
 
-		mat4 parentScale = glm::scale(getScaleFromTransform(parent->getWorldTransform()/*parent->getModelingTransformation()*/));
+		if (parent != nullptr) {
 
-		this->localScale = glm::inverse(parentScale) * glm::scale(scale);
+			mat4 parentScale = glm::scale(getScaleFromTransform(parent->getWorldTransform()));
+			this->localScale = glm::inverse(parentScale) * glm::scale(scale);
+
+		}
+		else {
+			std::cerr << "ERROR: Setting scale relative to WORLD coordinates"
+				<< " with null parent. \nAttach GameObject to scene graph." << endl;
+		}
 	}
-
 
 } // end setScale
 

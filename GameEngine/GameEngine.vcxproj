@@ -169,6 +169,7 @@
     <ClCompile Include="ArrowRotateComponent.cpp" />
     <ClCompile Include="BoxMeshComponent.cpp" />
     <ClCompile Include="BuildShaderProgram.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ContinuousRotateComponent.cpp" />
     <ClCompile Include="CylinderMeshComponent.cpp" />
@@ -188,7 +189,6 @@
     <ClCompile Include="SharedMaterials.cpp" />
     <ClCompile Include="SharedTransformations.cpp" />
     <ClCompile Include="SharedUniformBlock.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="SoundBaseComponent.cpp" />
     <ClCompile Include="SoundEngine.cpp" />
     <ClCompile Include="SoundSourceComponent.cpp" />

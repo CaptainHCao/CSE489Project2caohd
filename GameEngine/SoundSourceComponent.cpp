@@ -12,6 +12,11 @@ SoundSourceComponent::SoundSourceComponent(std::string soundFileName, float refD
 	SoundEngine::check_al_errors();
 	// Associate the buffer with the source
 	alSourcei(source, AL_BUFFER, buffer);
+
+	setReferenceDistance(refDistance);
+	setRollOffFactor(rollOffFactor);
+	setMaxDistance(maxDistance);
+
 	SoundEngine::check_al_errors();
 }
 

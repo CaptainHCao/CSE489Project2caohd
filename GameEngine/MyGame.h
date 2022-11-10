@@ -50,7 +50,7 @@ protected:
 		GameObject* firstGameObject = new GameObject(); 
 
 		//Sound component for the sun
-		SoundSourceComponent* spaceSound = new SoundSourceComponent("Sounds/Bohemian Rhapsody(Mercury).wav");
+		SoundSourceComponent* spaceSound = new SoundSourceComponent("Sounds/Bohemian Rhapsody(Mercury).wav", 1.0f, 3.0f, 10.0f);
 		spaceSound->play();
 		spaceSound->setLooping(true);
 		spaceSound->setGain(0.1f);
@@ -82,7 +82,7 @@ protected:
 		earthMat.setDiffuseTexture(Texture::GetTexture("Textures/earth.jpg")->getTextureObject());
 
 		//earth sound 
-		SoundSourceComponent* earthSound = new SoundSourceComponent("Sounds/sweet-child-o-mine.wav");
+		SoundSourceComponent* earthSound = new SoundSourceComponent("Sounds/sweet-child-o-mine.wav", 1.0f, 3.0f, 10.0f);
 		earthSound->play();
 		earthSound->setLooping(true);
 		earthSound->setGain(0.005f);
@@ -144,7 +144,7 @@ protected:
 		marsMat.setDiffuseTexture(Texture::GetTexture("Textures/mars.jpg")->getTextureObject());
 
 		//mars sound 
-		SoundSourceComponent* marsSound = new SoundSourceComponent("Sounds/21 Guns.wav");
+		SoundSourceComponent* marsSound = new SoundSourceComponent("Sounds/21 Guns.wav", 1.0f, 3.0f, 10.0f);
 		marsSound->play();
 		marsSound->setLooping(true);
 		marsSound->setGain(0.05f);
@@ -218,7 +218,7 @@ protected:
 		jupiterMat.setDiffuseTexture(Texture::GetTexture("Textures/jupiter.jpg")->getTextureObject());
 
 		//earth sound 
-		SoundSourceComponent* jupiterSound = new SoundSourceComponent("Sounds/love-of-my-life.wav");
+		SoundSourceComponent* jupiterSound = new SoundSourceComponent("Sounds/love-of-my-life.wav", 1.0f, 3.0f, 10.0f);
 		jupiterSound->play();
 		jupiterSound->setLooping(true);
 		jupiterSound->setGain(0.05f);
@@ -249,11 +249,13 @@ protected:
 		//Create camera object
 		GameObject* cameraObject = new GameObject();
 		CameraComponent* firstCamera = new CameraComponent(0, 60.0);
-		
+		firstCamera->setViewPort(0.0f, 0.0f, 1.0f, 0.5f);
+		//firstCamera->setCameraClearColor(vec4(0.0f, 0.0f, 0.0f, 1.0f));
+
 		GameObject* secondCameraObject = new GameObject();
 		CameraComponent* secondCamera = new CameraComponent(1, 60.0);
-		secondCamera->setViewPort(0.6f, 0.6f, 0.4f, 0.4f);
-
+		secondCamera->setViewPort(0.0f, 0.5f, 1.0f, 0.5f);
+		//secondCamera->setCameraClearColor(vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
 		//Add component to object
 		cameraObject->addComponent(firstCamera);
@@ -309,7 +311,8 @@ protected:
 		cameraObject->setRotation(glm::rotate(-PI/9, UNIT_X_V3));
 
 		//first camera
-		secondCameraObject->setPosition(vec3(0.0f, 00.0f, 70.0f), LOCAL);
+		secondCameraObject->setPosition(vec3(0.0f, 70.0f, 0.0f), LOCAL);
+		secondCameraObject->setRotation(glm::rotate(-PI / 2, UNIT_X_V3));
 		//cameraObject->setRotation(glm::rotate(-PI/2, UNIT_X_V3), LOCAL);
 
 	}; // end loadScene
