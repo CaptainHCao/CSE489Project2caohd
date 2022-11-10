@@ -30,6 +30,8 @@ void CameraComponent::setCameraTransformations()
 	SharedTransformations::setViewMatrix(viewingTrans);
 
 	glViewport(this->xLowerLeft * dim.x, this->yLowerLeft * dim.y, this->viewPortWidth * dim.x, this->viewPortHeight * dim.y);
+
+
 }
 
 //add a camera component
