@@ -33,11 +33,11 @@ protected:
 
 
 		// Set the clear color for the rendering window
-		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 		// Create a "blue" material for a cylinder
 		Material sphereMat;
-		sphereMat.diffuseMat = BLUE_RGBA;
+		//sphereMat.diffuseMat = BLUE_RGBA;
 
 		//create texture object                              
 		sphereMat.setDiffuseTexture(Texture::GetTexture("Textures/sun.jpg")->getTextureObject());
@@ -50,10 +50,10 @@ protected:
 		GameObject* firstGameObject = new GameObject(); 
 
 		//Sound component for the sun
-		SoundSourceComponent* spaceSound = new SoundSourceComponent("Sounds/Bohemian Rhapsody(Mercury).wav", 1.0f, 3.0f, 10.0f);
+		SoundSourceComponent* spaceSound = new SoundSourceComponent("Sounds/Bohemian Rhapsody(Mercury).wav", 1.0f, 2.0f, 10.0f);
 		spaceSound->play();
 		spaceSound->setLooping(true);
-		spaceSound->setGain(0.1f);
+		spaceSound->setGain(1.5f);
 		//->setReferenceDistance(0.0f);
 		//spaceSound->setMaxDistance(1.0f);
 
@@ -67,7 +67,9 @@ protected:
 
 		SoundListenerComponent* soundListener = new SoundListenerComponent();
 
-		secondGameObject->addComponent(new ModelMeshComponent("my_objects/car.obj", shaderProgram));
+		//secondGameObject->addComponent(new ModelMeshComponent("my_objects/car.obj", shaderProgram));
+
+		secondGameObject->addComponent(new ModelMeshComponent("jet_models/F-15C_Eagle.obj", shaderProgram));
 		secondGameObject->addComponent(new TranslateComponent(vec3(-3.0f, 0.0f, -4.0f)));
 		secondGameObject->addComponent(new SteerComponent(60.0f));
 		secondGameObject->addComponent(soundListener);
@@ -76,16 +78,16 @@ protected:
 		GameObject* earthGameObject = new GameObject();
 		
 		Material earthMat;
-		earthMat.diffuseMat = BLUE_RGBA;
+		//earthMat.diffuseMat = BLUE_RGBA;
 
 		//create texture object                              
 		earthMat.setDiffuseTexture(Texture::GetTexture("Textures/earth.jpg")->getTextureObject());
 
 		//earth sound 
-		SoundSourceComponent* earthSound = new SoundSourceComponent("Sounds/sweet-child-o-mine.wav", 1.0f, 3.0f, 10.0f);
+		SoundSourceComponent* earthSound = new SoundSourceComponent("Sounds/sweet-child-o-mine.wav", 1.0f, 2.0f, 10.0f);
 		earthSound->play();
 		earthSound->setLooping(true);
-		earthSound->setGain(0.005f);
+		earthSound->setGain(0.3f);
 		//earthSound->setMaxDistance(1.0f);
 
 		// Instantiate a box shaped mesh
@@ -98,7 +100,7 @@ protected:
 		GameObject* moonGameObject = new GameObject();
 
 		Material moonMat;
-		moonMat.diffuseMat = BLUE_RGBA;
+		//moonMat.diffuseMat = BLUE_RGBA;
 
 		//create texture object                              
 		moonMat.setDiffuseTexture(Texture::GetTexture("Textures/moon.jpg")->getTextureObject());
@@ -111,7 +113,7 @@ protected:
 		//********************************************
 
 		GameObject* earthSpinGameObject = new GameObject();
-		earthSpinGameObject->addComponent(new SpinComponent(30.0f, UNIT_Y_V3, 100));
+		earthSpinGameObject->addComponent(new SpinComponent(20.0f, UNIT_Y_V3, 100));
 
 		earthGameObject->addComponent(new SpinComponent(100.0f));
 
@@ -138,16 +140,16 @@ protected:
 		GameObject* marsGameObject = new GameObject();
 
 		Material marsMat;
-		marsMat.diffuseMat = BLUE_RGBA;
+		//marsMat.diffuseMat = BLUE_RGBA;
 
 		//create texture object                              
 		marsMat.setDiffuseTexture(Texture::GetTexture("Textures/mars.jpg")->getTextureObject());
 
 		//mars sound 
-		SoundSourceComponent* marsSound = new SoundSourceComponent("Sounds/21 Guns.wav", 1.0f, 3.0f, 10.0f);
+		SoundSourceComponent* marsSound = new SoundSourceComponent("Sounds/21 Guns.wav", 1.0f, 2.0f, 10.0f);
 		marsSound->play();
 		marsSound->setLooping(true);
-		marsSound->setGain(0.05f);
+		marsSound->setGain(0.8f);
 
 		// Instantiate a box shaped mesh
 		SphereMeshComponent* mars = new SphereMeshComponent(shaderProgram, marsMat, 0.8f);
@@ -161,14 +163,14 @@ protected:
 
 		//create first moon mesh and add it
 		Material moonMarsMat;
-		moonMarsMat.diffuseMat = BLUE_RGBA;                             
+		//moonMarsMat.diffuseMat = BLUE_RGBA;                             
 		moonMarsMat.setDiffuseTexture(Texture::GetTexture("Textures/moon.jpg")->getTextureObject());
 		SphereMeshComponent* moonMars = new SphereMeshComponent(shaderProgram, moonMarsMat, 0.2f);
 		moonMarsGameObject->addComponent(moonMars);
 		
 		//create second moon mesh and add it
 		Material secondMoonMarsMat;
-		secondMoonMarsMat.diffuseMat = BLUE_RGBA;
+		//secondMoonMarsMat.diffuseMat = BLUE_RGBA;
 		secondMoonMarsMat.setDiffuseTexture(Texture::GetTexture("Textures/moon.jpg")->getTextureObject());
 		SphereMeshComponent* secondMoonMars = new SphereMeshComponent(shaderProgram, secondMoonMarsMat, 0.3f);
 		secondMoonMarsGameObject->addComponent(secondMoonMars);
@@ -176,7 +178,7 @@ protected:
 		//********************************************
 
 		GameObject* marsSpinGameObject = new GameObject();
-		marsSpinGameObject->addComponent(new SpinComponent(20.0f, UNIT_Y_V3, 100));
+		marsSpinGameObject->addComponent(new SpinComponent(12.0f, UNIT_Y_V3, 100));
 		
 		marsGameObject->addComponent(new SpinComponent(100.0f));
 
@@ -212,16 +214,16 @@ protected:
 		GameObject* jupiterGameObject = new GameObject();
 
 		Material jupiterMat;
-		jupiterMat.diffuseMat = BLUE_RGBA;
+		//jupiterMat.diffuseMat = BLUE_RGBA;
 
 		//create texture object                              
 		jupiterMat.setDiffuseTexture(Texture::GetTexture("Textures/jupiter.jpg")->getTextureObject());
 
 		//earth sound 
-		SoundSourceComponent* jupiterSound = new SoundSourceComponent("Sounds/love-of-my-life.wav", 1.0f, 3.0f, 10.0f);
+		SoundSourceComponent* jupiterSound = new SoundSourceComponent("Sounds/love-of-my-life.wav", 1.0f, 2.0f, 10.0f);
 		jupiterSound->play();
 		jupiterSound->setLooping(true);
-		jupiterSound->setGain(0.05f);
+		jupiterSound->setGain(1.0f);
 
 		// Instantiate a box shaped mesh
 		SphereMeshComponent* jupiter = new SphereMeshComponent(shaderProgram, jupiterMat, 2.0f);
@@ -232,7 +234,7 @@ protected:
 		//********************************************
 
 		GameObject* jupiterSpinGameObject = new GameObject();
-		jupiterSpinGameObject->addComponent(new SpinComponent(14.0f, UNIT_Y_V3, 100));
+		jupiterSpinGameObject->addComponent(new SpinComponent(9.0f, UNIT_Y_V3, 100));
 
 		jupiterGameObject->addComponent(new SpinComponent(80.0f));
 
@@ -243,6 +245,16 @@ protected:
 		firstGameObject->addChildGameObject(jupiterSpinGameObject);
 		jupiterSpinGameObject->addChildGameObject(jupiterLocationGameObject);
 		jupiterLocationGameObject->addChildGameObject(jupiterGameObject);
+
+		/*******************************Solar Traveling*****************************************/
+
+		std::vector<GameObject*> planets;
+		planets.push_back(firstGameObject);
+		planets.push_back(earthGameObject);
+		planets.push_back(marsGameObject);
+		planets.push_back(jupiterGameObject);
+
+		secondGameObject->addComponent(new SolarTravelComponent(planets, vec3(10.0f, 0.0f, 0.0f)));
 
 		/*****************************************************************************/
 
@@ -255,7 +267,10 @@ protected:
 		GameObject* secondCameraObject = new GameObject();
 		CameraComponent* secondCamera = new CameraComponent(1, 60.0);
 		secondCamera->setViewPort(0.0f, 0.5f, 1.0f, 0.5f);
-		//secondCamera->setCameraClearColor(vec4(0.0f, 0.0f, 0.0f, 1.0f));
+		
+		//set the clear color for the camera to be black
+		secondCamera->setCameraClearColor(vec4(0.0f, 0.0f, 0.0f, 1.0f));
+		firstCamera->setCameraClearColor(vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
 		//Add component to object
 		cameraObject->addComponent(firstCamera);
@@ -306,6 +321,9 @@ protected:
 		//secondGameObject->setPosition(vec3(3.0f, 1.0f, 1.0f));
 		//thirdGameObject->setPosition(vec3(0.0f, 0.0f, 0.0f));
 		
+		//Spawn the spaceship
+		/*secondGameObject->setPosition(vec3(100.0f, 0.0f, 1.0f), WORLD);*/
+		 
 		//second camera 
 		cameraObject->setPosition(vec3(0.0f, 3.0f, 5.0f));
 		cameraObject->setRotation(glm::rotate(-PI/9, UNIT_X_V3));

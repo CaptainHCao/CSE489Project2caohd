@@ -16,8 +16,8 @@
 #include "ModelMeshComponent.h"
 #include "SphereMeshComponent.h"
 #include "CylinderMeshComponent.h"
-// Movement
 
+// Movement
 #include "ArrowRotateComponent.h"
 #include "MakeVisableComponent.h"
 #include "TranslateComponent.h"
@@ -26,6 +26,7 @@
 #include "SteeringComponent.h"
 #include "WaypointComponent.h"
 #include "SpinComponent.h"
+#include "SolarTravelComponent.h"
 
 // Lighting
 #include "SharedLighting.h"
