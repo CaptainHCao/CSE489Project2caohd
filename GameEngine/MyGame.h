@@ -50,7 +50,7 @@ protected:
 		GameObject* firstGameObject = new GameObject(); 
 
 		//Sound component for the sun
-		SoundSourceComponent* spaceSound = new SoundSourceComponent("Sounds/Bohemian Rhapsody(Mercury).wav", 1.0f, 2.0f, 10.0f);
+		SoundSourceComponent* spaceSound = new SoundSourceComponent("Sounds/Bohemian Rhapsody(Mercury).wav", 1.0f, 2.0f, 5.0f);
 		spaceSound->play();
 		spaceSound->setLooping(true);
 		spaceSound->setGain(1.5f);
@@ -84,7 +84,7 @@ protected:
 		earthMat.setDiffuseTexture(Texture::GetTexture("Textures/earth.jpg")->getTextureObject());
 
 		//earth sound 
-		SoundSourceComponent* earthSound = new SoundSourceComponent("Sounds/sweet-child-o-mine.wav", 1.0f, 2.0f, 10.0f);
+		SoundSourceComponent* earthSound = new SoundSourceComponent("Sounds/sweet-child-o-mine.wav", 1.0f, 2.0f, 5.0f);
 		earthSound->play();
 		earthSound->setLooping(true);
 		earthSound->setGain(0.3f);
@@ -147,7 +147,7 @@ protected:
 		marsMat.setDiffuseTexture(Texture::GetTexture("Textures/mars.jpg")->getTextureObject());
 
 		//mars sound 
-		SoundSourceComponent* marsSound = new SoundSourceComponent("Sounds/21 Guns.wav", 1.0f, 2.0f, 10.0f);
+		SoundSourceComponent* marsSound = new SoundSourceComponent("Sounds/21 Guns.wav", 1.0f, 2.0f, 5.0f);
 		marsSound->play();
 		marsSound->setLooping(true);
 		marsSound->setGain(0.8f);
@@ -221,7 +221,7 @@ protected:
 		jupiterMat.setDiffuseTexture(Texture::GetTexture("Textures/jupiter.jpg")->getTextureObject());
 
 		//earth sound 
-		SoundSourceComponent* jupiterSound = new SoundSourceComponent("Sounds/love-of-my-life.wav", 1.0f, 2.0f, 10.0f);
+		SoundSourceComponent* jupiterSound = new SoundSourceComponent("Sounds/love-of-my-life.wav", 1.0f, 2.0f, 5.0f);
 		jupiterSound->play();
 		jupiterSound->setLooping(true);
 		jupiterSound->setGain(1.0f);
