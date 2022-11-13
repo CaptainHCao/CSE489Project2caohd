@@ -11,7 +11,7 @@ using namespace constants_and_types;
 // Enumerated type to support quick "instanceOf" checking. Enables the
 // Game to support specialized handling of different Component types
 enum COMPONENT_TYPE { COMPONENT = 0, MESH, COLLISION, CAMERA, LIGHT, 
-					  SKYBOX, BILLBOARD, PARTICLE_SYSTEM, RIGID_BODY  };
+					  SKYBOX, BILLBOARD, PARTICLE_SYSTEM, RIGID_BODY, MOVE };
 
 class Component
 {

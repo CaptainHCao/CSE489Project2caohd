@@ -6,7 +6,7 @@
 SteeringComponent::SteeringComponent(std::vector< glm::vec3> waypoints, vec3 velocity)
 	: WaypointComponent(waypoints, velocity)
 {
-
+	componentType = MOVE;
 }
 
 void SteeringComponent::update(const float& deltaTime)

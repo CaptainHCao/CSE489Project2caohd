@@ -182,6 +182,7 @@ public:
 	 */
 	static void ManageGameObjectChanges();
 
+
 protected:
 
 	/**
@@ -260,6 +261,7 @@ protected:
 	/** @brief	The game objects that are be attached to new
 	parents after this update cycle.*/
 	static std::vector<ReparentPair> reparentedGameObjects;
+
 
 }; // end GameObject class
 

@@ -1,9 +1,7 @@
 #include "LightComponent.h"
-#include "SharedLighting.h"
 
-//constructor
-LightComponent::LightComponent(int controlKey, int updateOrder)
-	: Component(updateOrder), controlKey(controlKey)
+LightComponent::LightComponent(int controlKey)
+	:toggleKey(controlKey)
 {
 	componentType = LIGHT;
 
@@ -15,102 +13,60 @@ LightComponent::LightComponent(int controlKey, int updateOrder)
 			break;
 		}
 	}
-	setAmbientColor(vec4(0.1, 0.1, 0.1, 1.0));
-	setDiffuseColor(WHITE_RGBA);
-	setSpecularColor(WHITE_RGBA);
-	setEnabled(true);
 }
 
-//light shared method
-void LightComponent::setAmbientColor(vec4 mat) 
-{ 
-	SharedLighting::setAmbientColor(lightIndex, mat);
-}
-
-void LightComponent::setDiffuseColor(vec4 mat) 
-{
-	SharedLighting::setDiffuseColor(lightIndex, mat);
-}
-
-void LightComponent::setSpecularColor(vec4 mat) 
-{
-	SharedLighting::setSpecularColor(lightIndex, mat);
-}
-
-void LightComponent::setEnabled(bool on) 
-{
-	SharedLighting::setEnabled(lightIndex, on);
-}
-
-bool LightComponent::getEnabled()
+bool LightComponent::getEnable()
 {
 	return SharedLighting::getEnabled(lightIndex);
 }
 
-//Atenuation methods
-void LightComponent::setAttenuationFactors(vec3 factors)
+LightComponent::~LightComponent()
 {
-	SharedLighting::setAttenuationFactors(lightIndex, factors);
-}
-
-void LightComponent::setConstantAttenuation(float factor)
-{
-	SharedLighting::setConstantAttenuation(lightIndex, factor);
-}
-
-void LightComponent::setLinearAttenuation(float factor)
-{
-	SharedLighting::setLinearAttenuation(lightIndex, factor);
-}
-void LightComponent::setQuadraticAttenuation(float factor)
-{
-	SharedLighting::setQuadraticAttenuation(lightIndex, factor);
-}
-
-//Spot methods
-void LightComponent::setSpotCutoffCos(float cutoffCos)
-{
-	SharedLighting::setSpotCutoffCos(lightIndex, cutoffCos);
-}
-
-void LightComponent::setSpotDirection(glm::vec3 spotDirect)
-{
-	SharedLighting::setSpotDirection(lightIndex, spotDirect);
-}
-
-bool LightComponent::getIsSpot() 
-{
-	return SharedLighting::getIsSpot(lightIndex);
-}
-
-//Destructor
-LightComponent::~LightComponent() {
 	SharedLighting::initilizeAttributes(lightIndex);
 	SharedLighting::lights[lightIndex].inUse = false;
 }
 
-//update Component
-void LightComponent::update(const float& deltaTime) 
+void LightComponent::setEnable(bool onOff)
 {
-	
+	SharedLighting::setEnabled(lightIndex, onOff);
 }
 
-//handle toggling input
 void LightComponent::processInput()
 {
-	if (glfwGetKey(glfwGetCurrentContext(), controlKey) && KeyDown == false)
-	{
-		cout << "toggling" << endl;
-		KeyDown = true;
+	if (glfwGetKey(glfwGetCurrentContext(), toggleKey) && toggleKeyDown == false) {
 
-		if (getEnabled())
-		{
-			setEnabled(false);
-		}
-		else setEnabled(true);
+		SharedLighting::setEnabled(lightIndex, !SharedLighting::getEnabled(lightIndex));
+
+		toggleKeyDown = true;
 	}
-	else if (!glfwGetKey(glfwGetCurrentContext(), controlKey))
-	{
-		KeyDown = false;
+	else if (!glfwGetKey(glfwGetCurrentContext(), toggleKey) && toggleKeyDown == true) {
+		toggleKeyDown = false;
 	}
+}
+
+
+
+void LightComponent::setAmbientColor(vec4 ambColor)
+{
+	SharedLighting::setAmbientColor(lightIndex, ambColor);
+}
+
+void LightComponent::setDiffuseColor(vec4 difColor)
+{
+	SharedLighting::setDiffuseColor(lightIndex, difColor);
+}
+
+void LightComponent::setSpecularColor(vec4 specColor)
+{
+	SharedLighting::setSpecularColor(lightIndex, specColor);
+}
+
+void LightComponent::setAttenuationFactors(float constant, float linear, float quadratic)
+{
+	SharedLighting::setConstantAttenuation(lightIndex, constant);
+
+	SharedLighting::setLinearAttenuation(lightIndex, linear);
+
+	SharedLighting::setQuadraticAttenuation(lightIndex, quadratic);
+
 }

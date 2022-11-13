@@ -1,12 +1,37 @@
 #pragma once
 #include "LightComponent.h"
-#include "SharedLighting.h"
 
-class SpotLightComponent :
-    public LightComponent
+
+class SpotLightComponent : public LightComponent
 {
-    public: 
-        SpotLightComponent(int controlKey, int updateOrder = 100);
-        virtual void update(const float& deltaTime) override;
+public:
+
+	SpotLightComponent(int controlKey) : LightComponent(controlKey) {}
+
+	/**
+	 * @fn	virtual void SpotLightComponent::update(float deltaTime) override;
+	 *
+	 * @brief	Updates the position and direction of the spot light.
+	 *
+	 * @param 	deltaTime	The delta time.
+	 */
+	virtual void update(const float& deltaTime) override;
+
+	/**
+	 * @fn	virtual void SpotLightComponent::initialize( )override;
+	 *
+	 * @brief	Initializes the spot light by setting isSpot to true
+	 */
+	virtual void initialize()override;
+
+	/**
+	 * @fn	void SpotLightComponent::setCutoffAngleInDegrees(float cutOffInDegrees);
+	 *
+	 * @brief	Sets cutoff angle in degrees.
+	 *
+	 * @param 	cutOffInDegrees	The cut off in degrees.
+	 */
+	void setCutoffAngleInDegrees(float cutOffInDegrees);
+
 };
 

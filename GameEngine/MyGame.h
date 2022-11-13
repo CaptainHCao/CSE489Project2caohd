@@ -68,7 +68,7 @@ protected:
 		SoundListenerComponent* soundListener = new SoundListenerComponent();
 
 		//secondGameObject->addComponent(new ModelMeshComponent("my_objects/car.obj", shaderProgram));
-
+		secondGameObject->setScale(vec3(0.1f, 0.1f, 0.1f), LOCAL);
 		secondGameObject->addComponent(new ModelMeshComponent("jet_models/F-15C_Eagle.obj", shaderProgram));
 		secondGameObject->addComponent(new TranslateComponent(vec3(-3.0f, 0.0f, -4.0f)));
 		secondGameObject->addComponent(new SteerComponent(60.0f));
@@ -109,12 +109,13 @@ protected:
 		SphereMeshComponent* moon = new SphereMeshComponent(shaderProgram, moonMat, 0.25f);
 
 		moonGameObject->addComponent(moon);
+		
 
 		//********************************************
 
 		GameObject* earthSpinGameObject = new GameObject();
 		earthSpinGameObject->addComponent(new SpinComponent(20.0f, UNIT_Y_V3, 100));
-
+		
 		earthGameObject->addComponent(new SpinComponent(100.0f));
 
 		GameObject* earthLocationGameObject = new GameObject();
@@ -167,7 +168,7 @@ protected:
 		moonMarsMat.setDiffuseTexture(Texture::GetTexture("Textures/moon.jpg")->getTextureObject());
 		SphereMeshComponent* moonMars = new SphereMeshComponent(shaderProgram, moonMarsMat, 0.2f);
 		moonMarsGameObject->addComponent(moonMars);
-		
+
 		//create second moon mesh and add it
 		Material secondMoonMarsMat;
 		//secondMoonMarsMat.diffuseMat = BLUE_RGBA;
@@ -278,28 +279,38 @@ protected:
 		secondCameraObject->addComponent(secondCamera);
 		
 		//Create a game object to hold the light
-		GameObject* lightObject = new GameObject();
+		GameObject* PoslightObject = new GameObject();
+
+		GameObject* SpotlightObject = new GameObject();
 
 		//A directional light
 		//LightComponent* dir = new DirectionalLightComponent(GLFW_KEY_D);
 		//dir->setAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 		//A positional light 
-		LightComponent* pos = new PositionalLightComponent(GLFW_KEY_P);
+		PositionalLightComponent* pos = new PositionalLightComponent(GLFW_KEY_P);
 		pos->setAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		pos->setEnable(true);
 
 		//for shining globes, set diffuse color
 		//pos->setDiffuseColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 		//A spot light
-		/*LightComponent* spot = new SpotLightComponent(GLFW_KEY_S);
-		spot->setSpotCutoffCos(glm::cos(glm::radians(PI_OVER_2)));
-		spot->setSpotDirection(vec3(0.0f, 0.0f, -1.0f));*/
+		SpotLightComponent* spot = new SpotLightComponent(GLFW_KEY_S);
+		spot->setAmbientColor(glm::vec4(0.4f, 0.4f, 0.4f, 1.0f));
+		spot->setCutoffAngleInDegrees(20.0f);
+		spot->setEnable(true);
+
+		SpotlightObject->addComponent(spot);
+		
+		SpotlightObject->setPosition(vec3(0.0f, 0.0f, 0.0f), LOCAL);
+		
+		secondGameObject->addChildGameObject(SpotlightObject);
 
 		//Add component back to the game object
 		
-		lightObject->addComponent(pos);
-		firstGameObject->addChildGameObject(lightObject);
+		PoslightObject->addComponent(pos);
+		firstGameObject->addChildGameObject(PoslightObject);
 		//lightObject->addComponent(spot);
 
 		// Add the game object to the game
@@ -325,13 +336,18 @@ protected:
 		/*secondGameObject->setPosition(vec3(100.0f, 0.0f, 1.0f), WORLD);*/
 		 
 		//second camera 
-		cameraObject->setPosition(vec3(0.0f, 3.0f, 5.0f));
+		cameraObject->setPosition(vec3(0.0f, 3.0f, 5.0f), LOCAL);
 		cameraObject->setRotation(glm::rotate(-PI/9, UNIT_X_V3));
 
 		//first camera
 		secondCameraObject->setPosition(vec3(0.0f, 70.0f, 0.0f), LOCAL);
 		secondCameraObject->setRotation(glm::rotate(-PI / 2, UNIT_X_V3));
 		//cameraObject->setRotation(glm::rotate(-PI/2, UNIT_X_V3), LOCAL);
+
+		//reparenting moons
+		moonSpinGameObject->addComponent(new ReparentComponent(secondGameObject, 7.0f));
+		moonMarsSpinGameObject->addComponent(new ReparentComponent(secondGameObject, 7.0f));
+		secondMoonMarsSpinGameObject->addComponent(new ReparentComponent(secondGameObject, 7.0f));
 
 	}; // end loadScene
 

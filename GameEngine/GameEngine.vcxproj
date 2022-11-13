@@ -147,6 +147,7 @@
     <ClInclude Include="ModelMeshComponent.h" />
     <ClInclude Include="MyGame.h" />
     <ClInclude Include="PositionalLightComponent.h" />
+    <ClInclude Include="ReparentComponent.h" />
     <ClInclude Include="SceneGraphNode.h" />
     <ClInclude Include="SharedLighting.h" />
     <ClInclude Include="SharedMaterials.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="ModelMeshComponent.cpp" />
     <ClCompile Include="PositionalLightComponent.cpp" />
+    <ClCompile Include="ReparentComponent.cpp" />
     <ClCompile Include="SceneGraphNode.cpp" />
     <ClCompile Include="SharedLighting.cpp" />
     <ClCompile Include="SharedMaterials.cpp" />

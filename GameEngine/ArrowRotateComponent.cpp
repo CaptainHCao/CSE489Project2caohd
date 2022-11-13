@@ -2,7 +2,9 @@
 
 ArrowRotateComponent::ArrowRotateComponent(int updateOrder)
 	: Component(updateOrder)
-{}
+{
+	componentType = MOVE;
+}
 
 void ArrowRotateComponent::initialize()
 {

@@ -3,7 +3,9 @@
 //contructor
 SteerComponent::SteerComponent(float turnRate, int updateOrder)
 	: Component(updateOrder), turnRate(turnRate)
-{}
+{
+	componentType = MOVE;
+}
 
 //Update() check every second for steering movement
 void SteerComponent::update(const float& deltaTime)

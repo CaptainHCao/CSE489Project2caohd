@@ -6,7 +6,7 @@ SolarTravelComponent::SolarTravelComponent(std::vector<GameObject*> planets, vec
 	: velocity(velocity), speed(glm::length(velocity)), planets(planets),
 	targetPlanetIndex(static_cast<int>(planets.size()) - 1)
 {
-
+	componentType = MOVE;
 }
 
 vec3 tmpVelocity;

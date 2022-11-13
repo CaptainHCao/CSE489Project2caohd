@@ -1,44 +1,47 @@
 #pragma once
 #include "Component.h"
 
-class LightComponent :
-    public Component
+#include "SharedLighting.h"
+
+/**
+ * @class	LightComponent - Supports all properties that are shared by all
+ * 			types of light light sources. Super class for PointLightComponent,
+ * 			DirectionalLightComponent, and SpotLightComponenet.
+ *
+ * @brief	A light component.
+ */
+class LightComponent : public Component
 {
-    
-    public:
-        LightComponent(int controlKey, int updateOrder = 100);
+public:
 
-        ~LightComponent();
+    LightComponent(int controlKey);
 
-        //Component methods
-        virtual void update(const float& deltaTime) override;
-        virtual void processInput() override;
+    ~LightComponent();
 
-        //shared mathod for all light types
-        void setAmbientColor(vec4 mat);
-        void setDiffuseColor(vec4 mat);
-        void setSpecularColor(vec4 mat);
-        void setEnabled(bool on);
-        bool getEnabled();
+    void setAmbientColor(vec4 ambColor);
 
-        //atenuation
-        void setAttenuationFactors(vec3 factor);
-        void setConstantAttenuation(float factor);
-        void setLinearAttenuation(float factor);
-        void setQuadraticAttenuation(float factor);
+    void setDiffuseColor(vec4 difColor);
 
-        //spot
-        void setSpotCutoffCos(float cutoffCos);
-        void setSpotDirection(glm::vec3 spotDirect);
-        bool getIsSpot();
+    void setSpecularColor(vec4 specColor);
 
-    protected:
+    void setEnable(bool onOff);
 
-        int controlKey;
-       
-        bool KeyDown = false;
+    void setAttenuationFactors(float constant = 1.0f, float linear = 2.0f, float quadratic = 2.0f);
 
-        int lightIndex;
+    bool getEnable();
+
+    virtual void processInput() override;
+
+protected:
+
+    /** @brief	Zero-based index of the specific light */
+    int lightIndex;
+
+    /** @brief	The key used to toggle the light on and off*/
+    int toggleKey;
+
+    /** @brief	Tracks state of the toggle key to detect each press once.*/
+    bool toggleKeyDown = false;
+
 };
-
 

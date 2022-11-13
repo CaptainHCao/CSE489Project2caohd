@@ -2,7 +2,7 @@
 
 SpinComponent::SpinComponent(float rotationRate, vec3 axis, int updateOrder) : Component(updateOrder), rotationRate(glm::radians(rotationRate)), axis(axis) 
 {
-
+    componentType = MOVE;
 }
 
 

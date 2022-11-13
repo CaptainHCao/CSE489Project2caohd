@@ -7,7 +7,7 @@ WaypointComponent::WaypointComponent(std::vector< glm::vec3> waypoints, vec3 vel
 	targetWaypointIndex(static_cast<int>(waypoints.size()) - 1)
 {
 	targetWaypointIndex = getNexWaypointIndex();
-
+	componentType = MOVE;
 }
 
 int index; //index of current destination waypoint

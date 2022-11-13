@@ -2,7 +2,9 @@
 
 ContinuousRotateComponent::ContinuousRotateComponent(float rotationRate, vec3 axis, int updateOrder)
 	: Component(updateOrder), rotationRate(rotationRate), axis(axis)
-{}
+{
+	componentType = MOVE;
+}
 
 //Passively rotate every update
 void ContinuousRotateComponent::update(const float& deltaTime)

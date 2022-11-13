@@ -172,7 +172,7 @@ void GameObject::removeComponent(Component* component)
 		components.erase(iter);
 
 		// Release the memory allocated to the component
-		delete temp;
+		//delete temp;
 	}
 
 } // end removeComponent

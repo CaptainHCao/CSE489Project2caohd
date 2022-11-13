@@ -1,19 +1,22 @@
 #include "SpotLightComponent.h"
 
-SpotLightComponent::SpotLightComponent(int controlKey, int updateOrder) : LightComponent(controlKey) 
+void SpotLightComponent::initialize()
 {
+    SharedLighting::setIsSpot(lightIndex, true);
 }
 
 void SpotLightComponent::update(const float& deltaTime)
 {
-	//LightComponent::update(deltaTime);
+    vec3 position = owningGameObject->getPosition(WORLD);
 
-	vec3 pos = owningGameObject->getPosition(WORLD);
+    SharedLighting::setPositionOrDirection(lightIndex, vec4(position, 1.0f));
 
-	vec3 dir = owningGameObject->getFowardDirection(WORLD);
+    vec3 direction = owningGameObject->getFowardDirection(WORLD);
 
-	SharedLighting::setPositionOrDirection(lightIndex, vec4(pos, 1.0));
+    SharedLighting::setSpotDirection(lightIndex, direction);
+}
 
-	SharedLighting::setSpotDirection(lightIndex, dir);
-
+void SpotLightComponent::setCutoffAngleInDegrees(float cutOffInDegrees)
+{
+    SharedLighting::setSpotCutoffCos(lightIndex, glm::cos(glm::radians(cutOffInDegrees)));
 }

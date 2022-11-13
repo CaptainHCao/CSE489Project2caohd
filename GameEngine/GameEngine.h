@@ -27,6 +27,7 @@
 #include "WaypointComponent.h"
 #include "SpinComponent.h"
 #include "SolarTravelComponent.h"
+#include "ReparentComponent.h"
 
 // Lighting
 #include "SharedLighting.h"

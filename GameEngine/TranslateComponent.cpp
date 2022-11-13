@@ -2,7 +2,9 @@
 
 TranslateComponent::TranslateComponent(vec3 velocity, int updateOrder)
 	: Component(updateOrder), velocity(velocity)
-{}
+{
+	componentType = MOVE;
+}
 
 void TranslateComponent::initialize()
 {
