@@ -67,10 +67,12 @@ protected:
 		//Add sound listener to the spaceship
 		SoundListenerComponent* soundListener = new SoundListenerComponent();
 
+		//Spawn the spaceship
+		spaceShipGameObject->setPosition(vec3(20.0f, 0.0f, 20.0f), LOCAL);
+
 		//set spaceship's model, scale, sound listener and steering component
 		spaceShipGameObject->setScale(vec3(0.001f, 0.001f, 0.001f), LOCAL);
 		spaceShipGameObject->addComponent(new ModelMeshComponent("my_objects/SciFi_Fighter_AK5.obj", shaderProgram));
-		spaceShipGameObject->addComponent(new TranslateComponent(vec3(-3.0f, 0.0f, -4.0f)));
 		spaceShipGameObject->addComponent(new SteerComponent(60.0f));
 		spaceShipGameObject->addComponent(soundListener);
 	
@@ -338,9 +340,6 @@ protected:
 
 		//second camera attached to the game
 		this->addChildGameObject(secondCameraObject);
-		
-		//Spawn the spaceship
-		/*spaceShipGameObject->setPosition(vec3(100.0f, 0.0f, 1.0f), WORLD);*/
 		 
 		//first camera set to be right behind, and above the spaceship
 		cameraObject->setPosition(vec3(0.0f, 3.0f, 5.0f), LOCAL);
