@@ -1,5 +1,6 @@
 #include "SoundSourceComponent.h"
 
+//constructor
 SoundSourceComponent::SoundSourceComponent(std::string soundFileName, float refDistance,
 	float rollOffFactor, float maxDistance, int updateOrder) : SoundBaseComponent(updateOrder) 
 {
@@ -20,15 +21,20 @@ SoundSourceComponent::SoundSourceComponent(std::string soundFileName, float refD
 	SoundEngine::check_al_errors();
 }
 
+//destructor
 SoundSourceComponent::~SoundSourceComponent() 
 {
-	
+	alSourcei(source, AL_BUFFER, NULL);
+	alDeleteSources(1, &source);
+	alDeleteBuffers(1, &buffer);
 }
 
+//update override
 void SoundSourceComponent::update(const float& deltaTime)
 {
 	SoundBaseComponent::update(deltaTime);
 
+	//set up the orientation array
 	float orientation[6];
 	orientation[0] = this->soundForward.x; //forward vector x value
 	orientation[1] = this->soundForward.y; //forward vector y value
@@ -37,6 +43,7 @@ void SoundSourceComponent::update(const float& deltaTime)
 	orientation[4] = this->soundUp.y; //up vector y value
 	orientation[5] = this->soundUp.z; //up vector z value
 
+	//set the position, velocity and orientation
 	alSource3f(this->source, AL_POSITION, soundPosition.x, soundPosition.y, soundPosition.z);
 	alSource3f(this->source, AL_VELOCITY, soundVelocity.x, soundVelocity.y, soundVelocity.z);
 	alSource3f(this->source, AL_DIRECTION, soundForward.x, soundForward.y, soundForward.z);
@@ -94,6 +101,7 @@ void SoundSourceComponent::setReferenceDistance(float refDistance)
 	alSourcef(this->source, AL_REFERENCE_DISTANCE, refDistance);
 }
 
+//initialize the position, velocity and direction
 void SoundSourceComponent::initialize()
 {
 	//set source position

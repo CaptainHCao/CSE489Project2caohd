@@ -1,20 +1,24 @@
 #include "ReparentComponent.h"
 #define VERBOSE false
 
+//constructor
 ReparentComponent::ReparentComponent(GameObject* newParent, float radius, int updateOrder)
 	: Component(updateOrder), newParent(newParent), radius(radius)
 {
 	//componentType = MOVE;
 }
 
+//override update
 void ReparentComponent::update(const float& deltaTime)
 {
+	//if the distance is within the radius, carry out the reparenting
 	if (distanceToNewParent() < radius) 
 	{
 		reparent();
 	}
 }
 
+//return the distance to the potential new parent
 GLfloat ReparentComponent::distanceToNewParent()
 {
 	GLfloat dist = glm::distance(newParent->getPosition(), owningGameObject->getPosition(WORLD));
@@ -25,6 +29,7 @@ GLfloat ReparentComponent::distanceToNewParent()
 
 }
 
+//carry out the reparenting
 GLvoid ReparentComponent::reparent()
 {
 	std::vector<Component*> components;
@@ -48,4 +53,4 @@ GLvoid ReparentComponent::reparent()
 			owningGameObject->addComponent(component);
 		}
 	}
-}
+}//end the reparenting process

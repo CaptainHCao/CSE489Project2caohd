@@ -6,35 +6,36 @@ class SolarTravelComponent : public Component
 {
 public:
 
-	/**
-	 * @fn	WaypointComponent::WaypointComponent(std::vector< glm::vec3> waypoints, vec3 velocity = vec3(10, 0, 0));
-	 *
-	 * @brief	Constructor
-	 *
-	 * @param	waypoints	The waypoints.
-	 * @param	velocity 	(Optional) The velocity.
-	 */
-	SolarTravelComponent(std::vector<GameObject*> planets, vec3 velocity = vec3(10, 0, 0));
+	//Constructor
+	SolarTravelComponent(std::vector<GameObject*> planets, vec3 velocity = vec3(10, 0, 0), int updateOrder = 100);
 
+	//override update
 	virtual void update(const float& deltaTime) override;
 
 protected:
-
-	//int getNextPlanetIndex();
+	//return direcetion to next planet
 	vec3 getDirectionToNextPlanet();
+
+	//return distance to target planet
 	GLfloat distanceToTargetPlanet();
+
+	//move along the planet
 	void TagAlong();
+	//initialize speed 
 	void StartMoving();
+	//stop moving
 	void Stop();
 
+	//objects vector storing planet objects
 	std::vector<GameObject*> planets;
 
 	vec3 velocity;
+
 	float speed;
 
 	int targetPlanetIndex = 0;
 
-	bool isMoving;
+	bool isMoving = false;
 };
 
 

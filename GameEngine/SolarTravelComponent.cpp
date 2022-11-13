@@ -1,19 +1,21 @@
 #include "SolarTravelComponent.h"
 #define VERBOSE false
 
-//initialized the position to the first Planet
-SolarTravelComponent::SolarTravelComponent(std::vector<GameObject*> planets, vec3 velocity)
-	: velocity(velocity), speed(glm::length(velocity)), planets(planets),
+//constructor 
+SolarTravelComponent::SolarTravelComponent(std::vector<GameObject*> planets, vec3 velocity, int updateOrder)
+	:Component(updateOrder), velocity(velocity), speed(glm::length(velocity)), planets(planets),
 	targetPlanetIndex(static_cast<int>(planets.size()) - 1)
 {
 	componentType = MOVE;
 }
 
-vec3 tmpVelocity;
-
+//override update 
 void SolarTravelComponent::update(const float& deltaTime)
 {
+	//range that the spaceship slow down and tag along
 	float radius = 4.0;
+
+	//get user's input to determine which planet to go to
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_0)) {
 		targetPlanetIndex = 0; //the sun
 		isMoving = true;
@@ -34,6 +36,7 @@ void SolarTravelComponent::update(const float& deltaTime)
 		isMoving = true;
 		StartMoving();
 	}
+
 	if (isMoving) {
 		// Check if next Planet has been reached
 		if (distanceToTargetPlanet() < (speed * deltaTime + radius)) {
@@ -46,7 +49,8 @@ void SolarTravelComponent::update(const float& deltaTime)
 		else {
 			StartMoving();
 		}
-		cout << speed << " " << endl;
+
+		if (VERBOSE) cout << speed << " " << endl;
 
 		// Get current facing directions
 		vec3 current = owningGameObject->getFowardDirection(WORLD);
@@ -71,12 +75,6 @@ void SolarTravelComponent::update(const float& deltaTime)
 	}
 } // end update
 
-
-//int SolarTravelComponent::getNextPlanetIndex()
-//{
-//	return (targetPlanetIndex + 1) % planets.size();
-//
-//} // end getNexPlanetIndex
 
 vec3 SolarTravelComponent::getDirectionToNextPlanet()
 {
